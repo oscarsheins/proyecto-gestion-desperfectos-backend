@@ -1,0 +1,129 @@
+body {
+    margin: 0;
+    background-color: #1f1f1f;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    margin-left: 38px;
+    color: #8b8b8b;
+}
+
+.app {
+    width: 88%;
+    margin: 0 auto;
+    background-color: #0d1117;
+    min-height: 580px;
+}
+
+.header {
+    height: 90px;
+    background-color: #05080d;
+    display: flex;
+    align-items: center;
+    padding: 0 35px;
+}
+
+.logo {
+    font-size: 34px;
+    margin-right: 90px;
+}
+
+nav {
+    flex: 1;
+    display: flex;
+    gap: 170px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+nav .active {
+    border-bottom: 2px solid white;
+    padding-bottom: 6px;
+}
+
+.user {
+    font-size: 11px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-section {
+    width: 480px;
+    margin: 40px auto;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    margin: 15px 0 8px;
+}
+
+input,
+textarea {
+    width: 100%;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 5px;
+    color: white;
+    padding: 10px;
+}
+
+textarea {
+    height: 90px;
+    resize: none;
+}
+
+.upload-box {
+    margin-top: 18px;
+    height: 105px;
+    border: 1px solid #30363d;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #8b949e;
+}
+
+.camera {
+    font-size: 42px;
+}
+
+.upload-box p {
+    font-size: 11px;
+}
+
+button {
+    width: 100%;
+    margin-top: 18px;
+    height: 38px;
+    background-color: #2ea043;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+.mensaje {
+    color: #2ea043;
+    font-size: 13px;
+}
+
+footer {
+    width: 88%;
+    margin: 0 auto;
+    height: 45px;
+    background-color: #161b22;
+    color: #6e7681;
+    font-size: 9px;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    align-items: center;
+}

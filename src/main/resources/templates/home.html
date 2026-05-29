@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear incidencia</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+<body>
+
+<h2>Crear incidencia</h2>
+
+<main class="app">
+
+    <header class="header">
+        <div class="logo">🛠</div>
+
+        <nav>
+            <a href="#" class="active">Crear incidencia</a>
+            <a href="#">Estado de mis incidencias</a>
+        </nav>
+
+        <div class="user">
+            <span th:text="${nombreUsuario}">Nickname</span>
+            <small>Profesor de lengua</small>
+        </div>
+    </header>
+
+    <section class="form-section">
+
+        <form th:action="@{/home/incidencia}" th:object="${incidencia}" method="post">
+
+            <label>Tipo de incidencia</label>
+            <input type="text" th:field="*{titulo}" placeholder="Selecciona el tipo de incidencia" required>
+
+            <label>Ubicación</label>
+            <input type="text" value="Aula 2" readonly>
+
+            <label>Descripción</label>
+            <textarea th:field="*{descripcion}" placeholder="Describe la incidencia con el mayor detalle posible..." required></textarea>
+
+            <div class="upload-box">
+                <div class="camera">📷</div>
+                <p>Arrastre o seleccione una imagen</p>
+            </div>
+
+            <p class="mensaje" th:if="${mensaje}" th:text="${mensaje}"></p>
+
+            <button type="submit">Enviar incidencia</button>
+
+        </form>
+
+    </section>
+
+</main>
+
+<footer>
+    <span>Términos y servicios</span>
+    <span>Privacidad</span>
+    <span>Documentos</span>
+    <span>Contacto de soporte</span>
+    <span>Manejar cookies</span>
+    <span>No mostrar mi información personal</span>
+</footer>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.oscarcoronado.proyectofinal.gestiondesperfectos.servicioImp;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -51,4 +52,18 @@ public class UsuarioServicioImp implements UsuarioServicio {
 		
 	}
 
+	@Override
+	public Usuario login(String usuario, String password) {
+
+		Optional<Usuario> usuarioBD = usuarioRepositorio.findByUsername(usuario);
+
+	    if (usuarioBD.isPresent()
+	            && usuarioBD.get().getPassword().equals(password)) {
+
+	        return usuarioBD.get();
+	    }
+	    
+		return null;
+	}
+		
 }
