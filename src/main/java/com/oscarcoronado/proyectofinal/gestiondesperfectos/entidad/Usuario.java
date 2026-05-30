@@ -2,6 +2,8 @@ package com.oscarcoronado.proyectofinal.gestiondesperfectos.entidad;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,6 +38,10 @@ public class Usuario {
 
     @Column(nullable = false, length = 100)
     private String nombre;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RolUsuario rol;
 
     @Column(nullable = false,length = 120)
     private String email;

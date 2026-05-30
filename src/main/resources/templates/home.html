@@ -7,60 +7,66 @@
 </head>
 <body>
 
-<h2>Crear incidencia</h2>
+<div class="layout">
 
-<main class="app">
-
-    <header class="header">
+    <header class="topbar">
         <div class="logo">🛠</div>
 
-        <nav>
+        <nav class="menu">
             <a href="#" class="active">Crear incidencia</a>
-            <a href="#">Estado de mis incidencias</a>
+            <a th:href="@{/mis-incidencias}">Estado de mis incidencias</a>
         </nav>
 
-        <div class="user">
-            <span th:text="${nombreUsuario}">Nickname</span>
-            <small>Profesor de lengua</small>
+        <div class="usuario">
+            <span th:text="${nombreUsuario}">Usuario</span>
         </div>
     </header>
 
-    <section class="form-section">
+    <main class="contenido">
 
-        <form th:action="@{/home/incidencia}" th:object="${incidencia}" method="post">
+        <form class="formulario"
+              th:action="@{/home/incidencia}"
+              th:object="${incidencia}"
+              method="post">
+
+            <h1>Crear incidencia</h1>
 
             <label>Tipo de incidencia</label>
-            <input type="text" th:field="*{titulo}" placeholder="Selecciona el tipo de incidencia" required>
+            <input type="text" th:field="*{titulo}" placeholder="Selecciona el tipo de incidencia">
 
             <label>Ubicación</label>
-            <input type="text" value="Aula 2" readonly>
+			<input type="number"
+			       th:field="*{aulaId}"
+			       placeholder="Introduce el ID del aula"
+			       required>
 
             <label>Descripción</label>
-            <textarea th:field="*{descripcion}" placeholder="Describe la incidencia con el mayor detalle posible..." required></textarea>
+            <textarea th:field="*{descripcion}" placeholder="Describe la incidencia con el mayor detalle posible..."></textarea>
 
-            <div class="upload-box">
-                <div class="camera">📷</div>
+            <div class="imagen-box">
+                <div class="camara">📷</div>
                 <p>Arrastre o seleccione una imagen</p>
             </div>
+			
+			<p class="mensaje" th:if="${mensaje}" th:text="${mensaje}"></p>
 
-            <p class="mensaje" th:if="${mensaje}" th:text="${mensaje}"></p>
+			<p class="error" th:if="${error}" th:text="${error}"></p>
 
             <button type="submit">Enviar incidencia</button>
 
         </form>
 
-    </section>
+    </main>
 
-</main>
+    <footer>
+        <span>Términos y servicios</span>
+        <span>Privacidad</span>
+        <span>Documentos</span>
+        <span>Contacto de soporte</span>
+        <span>Manejar cookies</span>
+    </footer>
 
-<footer>
-    <span>Términos y servicios</span>
-    <span>Privacidad</span>
-    <span>Documentos</span>
-    <span>Contacto de soporte</span>
-    <span>Manejar cookies</span>
-    <span>No mostrar mi información personal</span>
-</footer>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis incidencias</title>
+    <link rel="stylesheet" th:href="@{/css/mis-incidencias.css}">
+</head>
+<body>
+
+<div class="layout">
+
+    <header class="topbar">
+        <div class="logo">🛠</div>
+
+        <nav class="menu">
+            <a th:href="@{/home}">Crear incidencia</a>
+            <a href="#" class="active">Estado de mis incidencias</a>
+        </nav>
+
+        <div class="usuario">
+            <span th:text="${nombreUsuario}">Usuario</span>
+        </div>
+    </header>
+
+    <main class="contenido">
+
+        <section class="tabla-contenedor">
+
+            <h1>Ver incidencias</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aula</th>
+                        <th>Descripción</th>
+                        <th>Fecha</th>
+                        <th>Vista</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="incidencia : ${incidencias}">
+                        <td th:text="${incidencia.titulo}">Aula 12</td>
+                        <td th:text="${incidencia.descripcion}">---</td>
+                        <td th:text="${incidencia.fechaCreacion}">02/05</td>
+                        <td class="estado">
+                            <span>○</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p class="sin-datos" th:if="${#lists.isEmpty(incidencias)}">
+                Todavía no has creado ninguna incidencia.
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <span>Términos y servicios</span>
+        <span>Privacidad</span>
+        <span>Documentos</span>
+        <span>Contacto de soporte</span>
+        <span>Manejar cookies</span>
+    </footer>
+
+</div>
+
+</body>
+</html>
