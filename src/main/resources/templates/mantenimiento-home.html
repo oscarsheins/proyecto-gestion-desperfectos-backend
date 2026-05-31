@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mantenimiento - Incidencias</title>
+    <link rel="stylesheet" th:href="@{/css/mantenimiento-home.css}">
+</head>
+<body>
+
+<div class="layout">
+
+    <header class="topbar">
+        <div class="logo">🛠</div>
+
+        <nav class="menu">
+            <a href="#" class="active">Resolver incidencias</a>
+        </nav>
+
+        <div class="usuario">
+            <span th:text="${nombreUsuario}">Nickname</span>
+            <small>Mantenimiento</small>
+        </div>
+    </header>
+
+    <main class="contenido">
+
+        <section class="tabla-box">
+
+			<table>
+			    <thead>
+			        <tr>
+			            <th>Usuario</th>
+			            <th>Aula</th>
+			            <th>Descripción</th>
+			            <th>Estado</th>
+			        </tr>
+			    </thead>
+
+			    <tbody>
+					<tr th:each="incidencia : ${incidencias}"
+					    th:onclick="|window.location.href='@{/mantenimiento/incidencia/{id}(id=${incidencia.id})}'|"
+					    class="fila-click">
+			            <td th:text="${incidencia.usuarioUsername}">Usuario</td>
+			            <td th:text="${incidencia.aulaCodigo}">Aula</td>
+			            <td th:text="${incidencia.descripcion}">Descripción</td>
+			            <td th:text="${incidencia.estadoNombre}">Pendiente</td>
+			        </tr>
+			    </tbody>
+			</table>
+
+            <p class="sin-datos" th:if="${#lists.isEmpty(incidencias)}">
+                No hay incidencias registradas.
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <span>Términos y servicios</span>
+        <span>Privacidad</span>
+        <span>Documentos</span>
+        <span>Contacto de soporte</span>
+        <span>Manejar cookies</span>
+        <span>No mostrar mi información personal</span>
+    </footer>
+
+</div>
+
+</body>
+</html>

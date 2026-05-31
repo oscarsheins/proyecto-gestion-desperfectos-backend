@@ -15,6 +15,8 @@ public interface IncidenciaServicio {
     List<IncidenciaDto> listByUsuario(Long usuarioId);
 
     IncidenciaDto cambiarEstado(Long incidenciaId, Long nuevoEstadoId);
+    
+    List<IncidenciaDto> listActivas();
 
     void borrarById(Long id);
     void borrarAll();

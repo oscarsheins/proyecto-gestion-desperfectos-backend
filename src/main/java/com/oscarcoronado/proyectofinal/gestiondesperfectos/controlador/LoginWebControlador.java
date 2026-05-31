@@ -16,6 +16,7 @@ import com.oscarcoronado.proyectofinal.gestiondesperfectos.servicio.UsuarioServi
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class LoginWebControlador {
@@ -35,27 +36,30 @@ public class LoginWebControlador {
 	}
 
 	@PostMapping("/login")
-	public String login(@RequestParam String usuario, @RequestParam String password, Model model, HttpSession session) {
+	public String login(
+	        @RequestParam String usuario,
+	        @RequestParam String password,
+	        Model model,
+	        HttpSession session) {
 
-		Usuario usuarioLogueado = usuarioServicio.login(usuario, password);
+	    Usuario usuarioLogueado = usuarioServicio.login(usuario, password);
 
-		if (usuarioLogueado == null) {
-			model.addAttribute("error", "Usuario o contraseña incorrectos");
-			return "login";
-		}
+	    if (usuarioLogueado == null) {
+	        model.addAttribute("error", "Usuario o contraseña incorrectos");
+	        return "login";
+	    }
 
-		session.setAttribute("usuarioId", usuarioLogueado.getId());
-		session.setAttribute("nombreUsuario", usuarioLogueado.getNombre());
-		
-		session.setAttribute("rolUsuario", usuarioLogueado.getRol());
+	    session.setAttribute("usuarioId", usuarioLogueado.getId());
+	    session.setAttribute("nombreUsuario", usuarioLogueado.getNombre());
+	    session.setAttribute("rolUsuario", usuarioLogueado.getRol());
 
-		if (usuarioLogueado.getRol().name().equals("ADMIN")) {
-		    return "redirect:/admin/home";
-		}
+	    logger.info("Rol: {}", usuarioLogueado.getRol());
 
-		logger.info("Rol: {}", usuarioLogueado.getRol());
+	    if (usuarioLogueado.getRol().name().equals("MANTENIMIENTO")) {
+	        return "redirect:/mantenimiento/home";
+	    }
 
-		return "redirect:/home";
+	    return "redirect:/home";
 	}
 
 	@GetMapping("/home")
@@ -113,21 +117,80 @@ public class LoginWebControlador {
 
 	    return "mis-incidencias";
 	}
+		
 	
-	@GetMapping("/admin/home")
-	public String mostrarHomeAdmin(HttpSession session, Model model) {
+	@GetMapping("/mantenimiento/home")
+	public String mostrarHomeMantenimiento(HttpSession session, Model model) {
 
 	    if (session.getAttribute("usuarioId") == null) {
 	        return "redirect:/login";
 	    }
 
-	    if (!session.getAttribute("rolUsuario").toString().equals("ADMIN")) {
+	    if (!session.getAttribute("rolUsuario").toString().equals("MANTENIMIENTO")) {
 	        return "redirect:/home";
 	    }
 
 	    model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
+	    model.addAttribute("incidencias", incidenciaServicio.listActivas());
 
-	    return "admin-home";
+	    return "mantenimiento-home";
 	}
+	
+	@GetMapping("/mantenimiento/incidencia/{id}")
+	public String verDetalleIncidenciaMantenimiento(
+	        @PathVariable Long id,
+	        HttpSession session,
+	        Model model) {
+
+	    if (session.getAttribute("usuarioId") == null) {
+	        return "redirect:/login";
+	    }
+
+	    if (!session.getAttribute("rolUsuario").toString().equals("MANTENIMIENTO")) {
+	        return "redirect:/home";
+	    }
+
+	    model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
+	    model.addAttribute("incidencia", incidenciaServicio.listById(id));
+
+	    return "mantenimiento-detalle";
+	}
+
+	@PostMapping("/mantenimiento/incidencia/{id}/en-curso")
+	public String ponerIncidenciaEnCurso(
+	        @PathVariable Long id,
+	        HttpSession session) {
+
+	    if (session.getAttribute("usuarioId") == null) {
+	        return "redirect:/login";
+	    }
+
+	    if (!session.getAttribute("rolUsuario").toString().equals("MANTENIMIENTO")) {
+	        return "redirect:/home";
+	    }
+
+	    incidenciaServicio.cambiarEstado(id, 2L);
+
+	    return "redirect:/mantenimiento/incidencia/" + id;
+	}
+
+	@PostMapping("/mantenimiento/incidencia/{id}/finalizar")
+	public String finalizarIncidencia(
+	        @PathVariable Long id,
+	        HttpSession session) {
+
+	    if (session.getAttribute("usuarioId") == null) {
+	        return "redirect:/login";
+	    }
+
+	    if (!session.getAttribute("rolUsuario").toString().equals("MANTENIMIENTO")) {
+	        return "redirect:/home";
+	    }
+
+	    incidenciaServicio.cambiarEstado(id, 3L);
+
+	    return "redirect:/mantenimiento/home";
+	}
+	
 	
 }

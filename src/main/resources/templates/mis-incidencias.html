@@ -27,28 +27,67 @@
         <section class="tabla-contenedor">
 
             <h1>Ver incidencias</h1>
+			
+			<table>
+			    <thead>
+			        <tr>
+			            <th>Título</th>
+			            <th>Descripción</th>
+			            <th>Aula</th>
+			            <th>Fecha creación</th>
+			            <th>Última actualización</th>
+			            <th>Estado</th>
+			        </tr>
+			    </thead>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Aula</th>
-                        <th>Descripción</th>
-                        <th>Fecha</th>
-                        <th>Vista</th>
-                    </tr>
-                </thead>
+			    <tbody>
+			        <tr th:each="incidencia : ${incidencias}">
 
-                <tbody>
-                    <tr th:each="incidencia : ${incidencias}">
-                        <td th:text="${incidencia.titulo}">Aula 12</td>
-                        <td th:text="${incidencia.descripcion}">---</td>
-                        <td th:text="${incidencia.fechaCreacion}">02/05</td>
-                        <td class="estado">
-                            <span>○</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+			            <td th:text="${incidencia.titulo}">Proyector roto</td>
+
+			            <td th:text="${incidencia.descripcion}">No funciona el proyector</td>
+
+			            <td th:text="${incidencia.aulaCodigo}">LAB-1</td>
+
+			            <td th:text="${#temporals.format(incidencia.fechaCreacion, 'dd/MM/yyyy')}">
+			                30/05/2026
+			            </td>
+
+			            <td>
+			                <span th:if="${incidencia.fechaActualizacion != null}"
+			                      th:text="${#temporals.format(incidencia.fechaActualizacion, 'dd/MM/yyyy')}">
+			                </span>
+
+			                <span th:if="${incidencia.fechaActualizacion == null}">
+			                    —
+			                </span>
+			            </td>
+
+			            <td>
+			                <span class="estado pendiente"
+			                      th:if="${incidencia.estadoNombre == 'PENDIENTE'}">
+			                    Pendiente
+			                </span>
+
+			                <span class="estado curso"
+			                      th:if="${incidencia.estadoNombre == 'EN_CURSO'}">
+			                    En curso
+			                </span>
+
+			                <span class="estado resuelta"
+			                      th:if="${incidencia.estadoNombre == 'RESUELTA'}">
+			                    Resuelta
+			                </span>
+
+			                <span class="estado cerrada"
+			                      th:if="${incidencia.estadoNombre == 'CERRADA'}">
+			                    Cerrada
+			                </span>
+			            </td>
+
+			        </tr>
+			    </tbody>
+			</table>
 
             <p class="sin-datos" th:if="${#lists.isEmpty(incidencias)}">
                 Todavía no has creado ninguna incidencia.

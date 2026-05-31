@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle incidencia</title>
+    <link rel="stylesheet" th:href="@{/css/mantenimiento-detalle.css}">
+</head>
+<body>
+
+<div class="layout">
+
+    <header class="topbar">
+        <div class="logo">🛠</div>
+
+        <nav class="menu">
+            <a href="#" class="active">Resolver incidencias</a>
+        </nav>
+
+        <div class="usuario">
+            <span th:text="${nombreUsuario}">Nickname</span>
+            <small>Mantenimiento</small>
+        </div>
+    </header>
+
+    <main class="contenido">
+
+        <section class="detalle-card">
+
+            <div class="detalle-header">
+                <a class="volver" th:href="@{/mantenimiento/home}">←</a>
+
+                <div class="usuario-incidencia">
+                    <div class="avatar">👤</div>
+                    <span th:text="${incidencia.usuarioUsername}">Nickname</span>
+                </div>
+            </div>
+
+            <div class="detalle-body">
+
+                <div class="info">
+
+                    <div class="grid-info">
+                        <div>
+                            <p>
+                                <strong>Estado:</strong>
+                                <span th:text="${incidencia.estadoNombre}">Pendiente</span>
+                            </p>
+
+                            <p>
+                                <strong>Id:</strong>
+                                <span th:text="${incidencia.id}">INC-2025-0131</span>
+                            </p>
+
+                            <p>
+                                <strong>Ubicación:</strong>
+                                <span th:text="${incidencia.aulaCodigo}">Aula x</span>
+                            </p>
+                        </div>
+
+                        <div>
+                            <p>
+                                <strong>Fecha creación:</strong>
+                                <span th:text="${#temporals.format(incidencia.fechaCreacion, 'dd/MM/yyyy')}">12/02/2025</span>
+                            </p>
+
+                            <p>
+                                <strong>Fecha actualización:</strong>
+                                <span th:if="${incidencia.fechaActualizacion != null}"
+                                      th:text="${#temporals.format(incidencia.fechaActualizacion, 'dd/MM/yyyy')}">
+                                    12/02/2025
+                                </span>
+
+                                <span th:if="${incidencia.fechaActualizacion == null}">—</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="descripcion">
+                        <strong>Descripción:</strong>
+                        <p th:text="${incidencia.descripcion}">
+                            Descripción de la incidencia...
+                        </p>
+                    </div>
+
+                    <div class="acciones">
+
+                        <form th:action="@{/mantenimiento/incidencia/{id}/en-curso(id=${incidencia.id})}"
+                              method="post">
+                            <button type="submit" class="btn curso">
+                                — En progreso
+                            </button>
+                        </form>
+
+                        <form th:action="@{/mantenimiento/incidencia/{id}/finalizar(id=${incidencia.id})}"
+                              method="post">
+                            <button type="submit" class="btn finalizar">
+                                ✕ Finalizar
+                            </button>
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <div class="imagen">
+                    <div class="placeholder-img">🖼</div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <span>Términos y servicios</span>
+        <span>Privacidad</span>
+        <span>Documentos</span>
+        <span>Contacto de soporte</span>
+        <span>Manejar cookies</span>
+        <span>No mostrar mi información personal</span>
+    </footer>
+
+</div>
+
+</body>
+</html>

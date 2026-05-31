@@ -142,6 +142,34 @@ footer {
     .usuario {
         text-align: center;
     }
+	
+	.estado {
+	    display: inline-block;
+	    padding: 6px 12px;
+	    border-radius: 20px;
+	    font-size: 12px;
+	    font-weight: bold;
+	}
+
+	.pendiente {
+	    background-color: #dc2626;
+	    color: white;
+	}
+
+	.curso {
+	    background-color: #f59e0b;
+	    color: black;
+	}
+
+	.resuelta {
+	    background-color: #16a34a;
+	    color: white;
+	}
+
+	.cerrada {
+	    background-color: #6b7280;
+	    color: white;
+	}
 
     table {
         font-size: 12px;
@@ -157,4 +185,6 @@ footer {
         gap: 14px;
         font-size: 9px;
     }
+	
+	
 }	

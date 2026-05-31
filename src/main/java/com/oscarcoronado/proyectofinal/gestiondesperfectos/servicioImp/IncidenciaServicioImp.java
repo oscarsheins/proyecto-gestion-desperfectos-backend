@@ -151,5 +151,15 @@ public class IncidenciaServicioImp implements IncidenciaServicio {
                 aulaCodigo
         );
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public List<IncidenciaDto> listActivas() {
+        return incidenciaRepository.findByEstado_NombreNotIn(
+                List.of("RESUELTA", "CERRADA"))
+                .stream()
+                .map(this::toDto)
+                .toList();
+    }
 	
 }

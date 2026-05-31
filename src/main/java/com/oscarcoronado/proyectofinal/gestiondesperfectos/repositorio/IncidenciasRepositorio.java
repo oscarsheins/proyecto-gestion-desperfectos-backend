@@ -11,5 +11,6 @@ import com.oscarcoronado.proyectofinal.gestiondesperfectos.entidad.Incidencia;
 public interface IncidenciasRepositorio extends JpaRepository<Incidencia, Long> {
 
 	List<Incidencia> findByUsuario_Id(Long usuarioId);
+	List<Incidencia> findByEstado_NombreNotIn(List<String> estados);
 	
 }
