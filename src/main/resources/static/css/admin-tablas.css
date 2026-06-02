@@ -21,7 +21,7 @@ body {
     height: 96px;
     background-color: #05080d;
     display: grid;
-    grid-template-columns: 90px 1fr 180px;
+    grid-template-columns: 90px 1fr 190px;
     align-items: center;
     padding: 0 56px;
 }
@@ -32,7 +32,8 @@ body {
 
 .menu {
     display: flex;
-    gap: clamp(40px, 12vw, 220px);
+    justify-content: center;
+    gap: clamp(30px, 8vw, 120px);
 }
 
 .menu a {
@@ -43,31 +44,34 @@ body {
     padding-bottom: 8px;
 }
 
-.menu .active {
-    border-bottom: 2px solid white;
-}
-
 .usuario {
     text-align: right;
     font-size: 12px;
     font-weight: bold;
 }
 
+.usuario small {
+    display: block;
+    margin-top: 4px;
+    font-size: 10px;
+    color: #c9d1d9;
+}
+
 .contenido {
     flex: 1;
-    padding: 36px 20px;
     display: flex;
     justify-content: center;
+    padding: 48px 20px;
 }
 
 .tabla-contenedor {
-    width: min(760px, 100%);
+    width: min(900px, 100%);
 }
 
 h1 {
-    margin: 0 0 28px;
-    color: #8f8f8f;
-    font-size: 24px;
+    margin: 0 0 26px;
+    color: #9ca3af;
+    font-size: 26px;
 }
 
 table {
@@ -81,14 +85,14 @@ table {
 th,
 td {
     border-bottom: 1px solid #4b5563;
-    padding: 11px 14px;
+    padding: 13px 16px;
     font-size: 13px;
     text-align: left;
 }
 
 th {
     color: #9ca3af;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 td {
@@ -99,10 +103,12 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
-.estado {
-    text-align: center;
-    color: #6366f1;
-    font-size: 24px;
+.fila-click {
+    cursor: pointer;
+}
+
+.fila-click:hover {
+    background-color: #161b22;
 }
 
 .sin-datos {
@@ -172,57 +178,21 @@ footer {
     }
 
     .menu {
-        justify-content: center;
-        gap: 28px;
         flex-wrap: wrap;
+        gap: 24px;
     }
 
     .usuario {
         text-align: center;
     }
-	
-	.estado {
-	    display: inline-block;
-	    padding: 6px 12px;
-	    border-radius: 20px;
-	    font-size: 12px;
-	    font-weight: bold;
-	}
 
-	.pendiente {
-	    background-color: #dc2626;
-	    color: white;
-	}
-
-	.curso {
-	    background-color: #f59e0b;
-	    color: black;
-	}
-
-	.resuelta {
-	    background-color: #16a34a;
-	    color: white;
-	}
-
-	.cerrada {
-	    background-color: #6b7280;
-	    color: white;
-	}
-	.fila-click {
-	    cursor: pointer;
-	}
-
-	.fila-click:hover {
-	    background-color: #161b22;
-	}	
-
-    table {
-        font-size: 12px;
+    .contenido {
+        padding: 28px 12px;
+        overflow-x: auto;
     }
 
-    th,
-    td {
-        padding: 9px;
+    table {
+        min-width: 720px;
     }
 
     footer {
@@ -230,6 +200,4 @@ footer {
         gap: 14px;
         font-size: 9px;
     }
-	
-	
-}	
+}

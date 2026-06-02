@@ -1,0 +1,105 @@
+	<!DOCTYPE html>
+	<html lang="es" xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Detalle usuario</title>
+	    <link rel="stylesheet" th:href="@{/css/admin-usuario-detalle.css}">
+	</head>
+	<body>
+	
+	<div class="layout">
+	
+	    <header class="topbar">
+	        <div class="logo">🛠</div>
+	
+	        <nav class="menu">
+	            <a th:href="@{/admin/usuarios/nuevo}">Crear usuario</a>
+	            <a th:href="@{/admin/usuarios}" class="active">Gestionar usuarios</a>
+	        </nav>
+	
+			<div class="usuario-menu">
+	
+			    <span class="usuario-nombre"
+			          th:text="${nombreUsuario}">
+			        Usuario
+			    </span>
+	
+			    <div class="dropdown">
+			        <a th:href="@{/logout}">
+			            Cerrar sesión
+			        </a>
+			    </div>
+	
+			</div>
+	    </header>
+	
+	    <main class="contenido">
+	
+	        <section class="detalle-card">
+	
+	            <a class="volver" th:href="@{/admin/usuarios}">
+	                ← Volver
+	            </a>
+	
+	            <h1 th:text="${usuario.username}">
+	                Usuario
+	            </h1>
+	
+	            <div class="info">
+	
+	                <div class="campo">
+	                    <label>Username</label>
+	                    <p th:text="${usuario.username}">oscar</p>
+	                </div>
+	
+	                <div class="campo">
+	                    <label>Nombre</label>
+	                    <p th:text="${usuario.nombre}">Oscar Coronado</p>
+	                </div>
+	
+	                <div class="campo">
+	                    <label>Email</label>
+	                    <p th:text="${usuario.email}">oscar@centro.com</p>
+	                </div>
+	
+	                <div class="campo doble">
+	                    <div>
+	                        <label>Rol</label>
+	                        <p th:text="${usuario.rol}">USER</p>
+	                    </div>
+	
+	                    <div>
+	                        <label>Activo</label>
+	                        <p th:text="${usuario.activo ? 'Sí' : 'No'}">Sí</p>
+	                    </div>
+	                </div>
+	
+	            </div>
+	
+	            <div class="acciones">
+	
+	                <a class="btn editar"
+	                   th:href="@{/admin/usuarios/{id}/editar(id=${usuario.id})}">
+	                    Editar usuario
+	                </a>
+	
+	                <form th:action="@{/admin/usuarios/{id}/eliminar(id=${usuario.id})}"
+	                      method="post"
+	                      onsubmit="return confirm('¿Seguro que quieres eliminar este usuario?');">
+	
+	                    <button type="submit" class="btn eliminar">
+	                        Eliminar usuario
+	                    </button>
+	
+	                </form>
+	
+	            </div>
+	
+	        </section>
+	
+	    </main>
+	
+	</div>
+	
+	</body>
+	</html>		

@@ -1,0 +1,240 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+    background-color: #0d1117;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar {
+    height: 96px;
+    background-color: #05080d;
+    display: grid;
+    grid-template-columns: 90px 1fr 190px;
+    align-items: center;
+    padding: 0 56px;
+}
+
+.logo {
+    font-size: 34px;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    gap: clamp(45px, 12vw, 190px);
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 8px;
+}
+
+.menu .active {
+    border-bottom: 2px solid #d16a5a;
+}
+
+.usuario-menu {
+    position: relative;
+    display: inline-block;
+    text-align: right;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.usuario-nombre {
+    cursor: pointer;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 25px;
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    min-width: 140px;
+    z-index: 1000;
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.dropdown a:hover {
+    background-color: #30363d;
+}
+
+.usuario-menu:hover .dropdown {
+    display: block;
+}
+
+.contenido {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 50px 20px;
+}
+
+.detalle-card {
+    width: 700px;
+    background-color: #0b1220;
+    border: 1px solid #374151;
+    border-radius: 12px;
+    padding: 30px;
+}
+
+.volver {
+    color: #9ca3af;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.volver:hover {
+    color: white;
+}
+
+.detalle-card h1 {
+    text-align: center;
+    margin: 20px 0 40px;
+    color: white;
+    font-size: 32px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.campo label {
+    display: block;
+    color: #9ca3af;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.campo p {
+    margin: 0;
+    padding: 14px 16px;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    color: #d1d5db;
+    font-size: 15px;
+}
+
+.doble {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.acciones {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.acciones form {
+    margin: 0;
+}
+
+.btn {
+    min-width: 150px;
+    height: 42px;
+    border: none;
+    border-radius: 8px;
+    padding: 0 22px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editar {
+    background-color: #f59e0b;
+    color: black;
+}
+
+.eliminar {
+    background-color: #dc2626;
+    color: white;
+}
+
+@media (max-width: 768px) {
+
+    .topbar {
+        height: auto;
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 24px 20px;
+        text-align: center;
+    }
+
+    .menu {
+        justify-content: center;
+        gap: 28px;
+        flex-wrap: wrap;
+    }
+
+    .usuario-menu {
+        text-align: center;
+    }
+
+    .dropdown {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+
+    .contenido {
+        padding: 28px 18px;
+    }
+
+    .detalle-card {
+        width: 100%;
+    }
+
+    .detalle-card h1 {
+        font-size: 24px;
+    }
+
+    .doble {
+        grid-template-columns: 1fr;
+    }
+
+    .acciones {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

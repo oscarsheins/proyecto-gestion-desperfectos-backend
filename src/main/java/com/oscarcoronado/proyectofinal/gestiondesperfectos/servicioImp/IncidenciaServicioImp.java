@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.oscarcoronado.proyectofinal.gestiondesperfectos.dto.IncidenciaCreaDto;
 import com.oscarcoronado.proyectofinal.gestiondesperfectos.dto.IncidenciaDto;
+import com.oscarcoronado.proyectofinal.gestiondesperfectos.dto.IncidenciaEditaDto;
 import com.oscarcoronado.proyectofinal.gestiondesperfectos.entidad.Aula;
 import com.oscarcoronado.proyectofinal.gestiondesperfectos.entidad.Estado;
 import com.oscarcoronado.proyectofinal.gestiondesperfectos.entidad.Incidencia;
@@ -24,142 +25,158 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class IncidenciaServicioImp implements IncidenciaServicio {
 
-	
-    private final IncidenciasRepositorio incidenciaRepository;
-    private final UsuarioRepositorio usuarioRepository;
-    private final EstadoRepositorio estadoRepository;
-    private final AulaRepositorio aulaRepository;
+	private final IncidenciasRepositorio incidenciaRepository;
+	private final UsuarioRepositorio usuarioRepository;
+	private final EstadoRepositorio estadoRepository;
+	private final AulaRepositorio aulaRepository;
 
+	@Override
+	public IncidenciaDto crear(IncidenciaCreaDto dto) {
+		validarAlta(dto);
 
-    @Override
-    public IncidenciaDto crear(IncidenciaCreaDto dto) {
-        validarAlta(dto);
+		Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
+				.orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+		Estado estado = estadoRepository.findById(dto.getEstadoId())
+				.orElseThrow(() -> new RuntimeException("Estado no encontrado"));
 
-        Estado estado = estadoRepository.findById(dto.getEstadoId())
-                .orElseThrow(() -> new RuntimeException("Estado no encontrado"));
+		Aula aula = aulaRepository.findById(dto.getAulaId())
+				.orElseThrow(() -> new RuntimeException("Aula no encontrada"));
 
-        Aula aula = aulaRepository.findById(dto.getAulaId())
-                .orElseThrow(() -> new RuntimeException("Aula no encontrada"));
+		Incidencia incidencia = new Incidencia(dto.getTitulo().trim(), dto.getDescripcion().trim(), usuario, estado,
+				aula);
 
-        Incidencia incidencia = new Incidencia(
-                dto.getTitulo().trim(),
-                dto.getDescripcion().trim(),
-                usuario,
-                estado,
-                aula
-        );
+		Incidencia guardada = incidenciaRepository.save(incidencia);
+		return toDto(guardada);
+	}
 
-        Incidencia guardada = incidenciaRepository.save(incidencia);
-        return toDto(guardada);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<IncidenciaDto> listAll() {
+		return incidenciaRepository.findAll().stream().map(this::toDto).toList();
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<IncidenciaDto> listAll() {
-        return incidenciaRepository.findAll()
-                .stream()
-                .map(this::toDto)
-                .toList();
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public IncidenciaDto listById(Long id) {
+		Incidencia incidencia = incidenciaRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Incidencia no encontrada"));
+		return toDto(incidencia);
+	}
 
-    @Override
-    @Transactional(readOnly = true)
-    public IncidenciaDto listById(Long id) {
-        Incidencia incidencia = incidenciaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Incidencia no encontrada"));
-        return toDto(incidencia);
-    }
+	@Override
+	@Transactional(readOnly = true)
+	public List<IncidenciaDto> listByUsuario(Long usuarioId) {
+		if (usuarioId == null) {
+			throw new RuntimeException("usuarioId es obligatorio");
+		}
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<IncidenciaDto> listByUsuario(Long usuarioId) {
-        if (usuarioId == null) {
-            throw new RuntimeException("usuarioId es obligatorio");
-        }
+		return incidenciaRepository.findByUsuario_Id(usuarioId).stream().map(this::toDto).toList();
+	}
 
-        return incidenciaRepository.findByUsuario_Id(usuarioId)
-                .stream()
-                .map(this::toDto)
-                .toList();
-    }
+	@Override
+	public IncidenciaDto cambiarEstado(Long incidenciaId, Long nuevoEstadoId) {
+		if (incidenciaId == null || nuevoEstadoId == null) {
+			throw new RuntimeException("incidenciaId y estadoId son obligatorios");
+		}
 
-    @Override
-    public IncidenciaDto cambiarEstado(Long incidenciaId, Long nuevoEstadoId) {
-        if (incidenciaId == null || nuevoEstadoId == null) {
-            throw new RuntimeException("incidenciaId y estadoId son obligatorios");
-        }
+		Incidencia incidencia = incidenciaRepository.findById(incidenciaId)
+				.orElseThrow(() -> new RuntimeException("Incidencia no encontrada"));
 
-        Incidencia incidencia = incidenciaRepository.findById(incidenciaId)
-                .orElseThrow(() -> new RuntimeException("Incidencia no encontrada"));
+		Estado estado = estadoRepository.findById(nuevoEstadoId)
+				.orElseThrow(() -> new RuntimeException("Estado no encontrado"));
 
-        Estado estado = estadoRepository.findById(nuevoEstadoId)
-                .orElseThrow(() -> new RuntimeException("Estado no encontrado"));
+		incidencia.setEstado(estado);
+		Incidencia actualizada = incidenciaRepository.save(incidencia);
 
-        incidencia.setEstado(estado);
-        Incidencia actualizada = incidenciaRepository.save(incidencia);
+		return toDto(actualizada);
+	}
 
-        return toDto(actualizada);
-    }
+	@Override
+	public void borrarById(Long id) {
+		if (id == null)
+			throw new RuntimeException("id es obligatorio");
 
-    @Override
-    public void borrarById(Long id) {
-        if (id == null) throw new RuntimeException("id es obligatorio");
+		if (!incidenciaRepository.existsById(id)) {
+			throw new RuntimeException("Incidencia no encontrada");
+		}
+		incidenciaRepository.deleteById(id);
+	}
 
-        if (!incidenciaRepository.existsById(id)) {
-            throw new RuntimeException("Incidencia no encontrada");
-        }
-        incidenciaRepository.deleteById(id);
-    }
+	@Override
+	public void borrarAll() {
+		incidenciaRepository.deleteAll();
+	}
 
-    @Override
-    public void borrarAll() {
-        incidenciaRepository.deleteAll();
-    }
+	private void validarAlta(IncidenciaCreaDto dto) {
+		if (dto == null)
+			throw new RuntimeException("Body requerido");
+		if (dto.getTitulo() == null || dto.getTitulo().trim().isEmpty())
+			throw new RuntimeException("titulo es obligatorio");
+		if (dto.getDescripcion() == null || dto.getDescripcion().trim().isEmpty())
+			throw new RuntimeException("descripcion es obligatoria");
+		if (dto.getUsuarioId() == null)
+			throw new RuntimeException("usuarioId es obligatorio");
+		if (dto.getEstadoId() == null)
+			throw new RuntimeException("estadoId es obligatorio");
+		if (dto.getAulaId() == null)
+			throw new RuntimeException("aulaId es obligatorio");
+	}
 
-    private void validarAlta(IncidenciaCreaDto dto) {
-        if (dto == null) throw new RuntimeException("Body requerido");
-        if (dto.getTitulo() == null || dto.getTitulo().trim().isEmpty())
-            throw new RuntimeException("titulo es obligatorio");
-        if (dto.getDescripcion() == null || dto.getDescripcion().trim().isEmpty())
-            throw new RuntimeException("descripcion es obligatoria");
-        if (dto.getUsuarioId() == null)
-            throw new RuntimeException("usuarioId es obligatorio");
-        if (dto.getEstadoId() == null)
-            throw new RuntimeException("estadoId es obligatorio");
-        if (dto.getAulaId() == null)
-            throw new RuntimeException("aulaId es obligatorio");
-    }
+	private IncidenciaDto toDto(Incidencia i) {
+		Long aulaId = (i.getAula() != null) ? i.getAula().getId() : null;
+		String aulaCodigo = (i.getAula() != null) ? i.getAula().getCodigo() : null;
 
-    private IncidenciaDto toDto(Incidencia i) {
-        Long aulaId = (i.getAula() != null) ? i.getAula().getId() : null;
-        String aulaCodigo = (i.getAula() != null) ? i.getAula().getCodigo() : null;
+		return new IncidenciaDto(i.getId(), i.getTitulo(), i.getDescripcion(), i.getFechaCreacion(),
+				i.getFechaActualizacion(), i.getUsuario().getId(), i.getUsuario().getUsername(), i.getEstado().getId(),
+				i.getEstado().getNombre(), aulaId, aulaCodigo);
+	}
 
-        return new IncidenciaDto(
-                i.getId(),
-                i.getTitulo(),
-                i.getDescripcion(),
-                i.getFechaCreacion(),
-                i.getFechaActualizacion(),
-                i.getUsuario().getId(),
-                i.getUsuario().getUsername(),
-                i.getEstado().getId(),
-                i.getEstado().getNombre(),
-                aulaId,
-                aulaCodigo
-        );
-    }
-    
-    @Override
-    @Transactional(readOnly = true)
-    public List<IncidenciaDto> listActivas() {
-        return incidenciaRepository.findByEstado_NombreNotIn(
-                List.of("RESUELTA", "CERRADA"))
-                .stream()
-                .map(this::toDto)
-                .toList();
-    }
-	
+	@Override
+	@Transactional(readOnly = true)
+	public List<IncidenciaDto> listActivas() {
+		return incidenciaRepository.findByEstado_NombreNotIn(List.of("RESUELTA", "CERRADA")).stream().map(this::toDto)
+				.toList();
+	}
+
+	// Para permitir editar las incidencias ya creadas
+
+	@Override
+	public IncidenciaDto editar(Long id, IncidenciaEditaDto dto) {
+
+		if (id == null) {
+			throw new RuntimeException("id es obligatorio");
+		}
+
+		if (dto == null) {
+			throw new RuntimeException("Datos de incidencia obligatorios");
+		}
+
+		if (dto.getTitulo() == null || dto.getTitulo().trim().isEmpty()) {
+			throw new RuntimeException("El título es obligatorio");
+		}
+
+		if (dto.getDescripcion() == null || dto.getDescripcion().trim().isEmpty()) {
+			throw new RuntimeException("La descripción es obligatoria");
+		}
+
+		if (dto.getAulaId() == null) {
+			throw new RuntimeException("El aula es obligatoria");
+		}
+
+		Incidencia incidencia = incidenciaRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Incidencia no encontrada"));
+
+		Aula aula = aulaRepository.findById(dto.getAulaId())
+				.orElseThrow(() -> new RuntimeException("Aula no encontrada"));
+
+		incidencia.setTitulo(dto.getTitulo().trim());
+		incidencia.setDescripcion(dto.getDescripcion().trim());
+		incidencia.setAula(aula);
+
+		Incidencia actualizada = incidenciaRepository.save(incidencia);
+
+		return toDto(actualizada);
+	}
+
 }

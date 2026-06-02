@@ -5,12 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioDto {
+@AllArgsConstructor
+public class IncidenciaEditaDto {
 	
-	private Long id;
-    private String username;
-    private String rol;
+	private long id;
+	private String titulo;
+	private String descripcion;
+	private Long aulaId;
 
 }

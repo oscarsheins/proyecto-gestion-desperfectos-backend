@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar aula</title>
+    <link rel="stylesheet" th:href="@{/css/admin-form.css}">
+</head>
+<body>
+
+<div class="layout">
+
+    <header class="topbar">
+        <div class="logo">🛠</div>
+
+        <nav class="menu">
+            <a th:href="@{/admin/aulas/nueva}">Crear aula</a>
+            <a th:href="@{/admin/aulas}" class="active">Gestionar aulas</a>
+        </nav>
+
+		<div class="usuario-menu">
+
+		    <span class="usuario-nombre"
+		          th:text="${nombreUsuario}">
+		        Usuario
+		    </span>
+
+		    <div class="dropdown">
+		        <a th:href="@{/logout}">
+		            Cerrar sesión
+		        </a>
+		    </div>
+
+		</div>
+    </header>
+	
+	<a th:href="@{/admin/aulas/{id}(id=${aulaId})}">
+	    ← Volver
+	</a>
+
+    <main class="contenido">
+
+        <form class="formulario"
+              th:action="@{/admin/aulas/{id}/editar(id=${aulaId})}"
+              th:object="${aula}"
+              method="post">
+
+            <h1>Editar aula</h1>
+
+            <label>Código del aula</label>
+            <input type="text"
+                   th:field="*{codigo}"
+                   required>
+
+            <label>Descripción</label>
+            <textarea th:field="*{descripcion}"
+                      required></textarea>
+
+            <p class="mensaje"
+               th:if="${mensaje}"
+               th:text="${mensaje}">
+            </p>
+
+            <p class="error"
+               th:if="${error}"
+               th:text="${error}">
+            </p>
+
+            <button type="submit">
+                Guardar cambios
+            </button>
+
+        </form>
+
+    </main>
+
+</div>
+
+</body>
+</html>

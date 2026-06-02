@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar usuario</title>
+    <link rel="stylesheet" th:href="@{/css/admin-form.css}">
+</head>
+<body>
+
+<div class="layout">
+
+    <header class="topbar">
+        <div class="logo">🛠</div>
+
+        <nav class="menu">
+            <a th:href="@{/admin/usuarios/nuevo}">Crear usuario</a>
+            <a th:href="@{/admin/usuarios}" class="active">Gestionar usuarios</a>
+        </nav>
+
+        <div class="usuario">
+            <span th:text="${nombreUsuario}">Admin</span>
+            <small>Administrador</small>
+        </div>
+    </header>
+
+    <main class="contenido">
+
+        <form class="formulario"
+              th:action="@{/admin/usuarios/{id}/editar(id=${usuarioId})}"
+              th:object="${usuarioNuevo}"
+              method="post">
+
+            <h1>Editar usuario</h1>
+
+            <label>Username</label>
+            <input type="text" th:field="*{username}" required>
+
+            <label>Nombre completo</label>
+            <input type="text" th:field="*{nombre}" required>
+
+            <label>Email</label>
+            <input type="email" th:field="*{email}" required>
+
+            <label>Nueva contraseña</label>
+            <input type="password"
+                   th:field="*{password}"
+                   placeholder="Déjalo vacío para no cambiarla">
+
+            <label>Rol</label>
+            <select th:field="*{rol}" required>
+                <option value="USER">Usuario básico</option>
+                <option value="MANTENIMIENTO">Mantenimiento</option>
+                <option value="ADMIN">Administrador</option>
+            </select>
+
+            <label class="checkbox-label">
+                <input type="checkbox" th:field="*{activo}">
+                Usuario activo
+            </label>
+
+            <p class="error" th:if="${error}" th:text="${error}"></p>
+
+            <button type="submit">Guardar cambios</button>
+
+        </form>
+
+    </main>
+
+</div>
+
+</body>
+</html>

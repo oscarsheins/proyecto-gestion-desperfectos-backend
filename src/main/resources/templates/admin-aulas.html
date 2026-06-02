@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Aulas</title>
+    <link rel="stylesheet" th:href="@{/css/admin-tablas.css}">
+</head>
+<body>
+
+<div class="layout">
+	
+	
+
+    <header class="topbar">
+		
+		
+        <div class="logo">🛠</div>
+
+		<nav class="menu">
+		    <a th:href="@{/admin/aulas/nueva}">Crear aula</a>
+		    <a th:href="@{/admin/aulas}" class="active">Gestionar aulas</a>
+		</nav>
+		
+		
+
+		<div class="usuario-menu">
+
+		    <span class="usuario-nombre"
+		          th:text="${nombreUsuario}">
+		        Usuario
+		    </span>
+
+		    <div class="dropdown">
+		        <a th:href="@{/logout}">
+		            Cerrar sesión
+		        </a>
+		    </div>
+
+		</div>
+    </header>
+	
+	<a th:href="@{/admin/home}">
+	    ← Volver al panel
+	</a>	
+
+    <main class="contenido">
+
+        <section class="tabla-contenedor">
+
+            <h1>Aulas del centro</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Código</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="aula : ${aulas}"
+                        th:onclick="|window.location.href='@{/admin/aulas/{id}(id=${aula.id})}'|"
+                        class="fila-click">
+
+                        <td th:text="${aula.id}">1</td>
+                        <td th:text="${aula.codigo}">LAB-1</td>
+                        <td th:text="${aula.descripcion}">Laboratorio informática</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p class="sin-datos" th:if="${#lists.isEmpty(aulas)}">
+                No hay aulas registradas.
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <span>Términos y servicios</span>
+        <span>Privacidad</span>
+        <span>Documentos</span>
+        <span>Contacto de soporte</span>
+        <span>Manejar cookies</span>
+    </footer>
+
+</div>
+
+</body>
+</html>

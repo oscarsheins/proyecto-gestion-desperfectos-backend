@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios</title>
+    <link rel="stylesheet" th:href="@{/css/admin-tablas.css}">
+</head>
+<body>
+
+<div class="layout">
+
+    <header class="topbar">
+        <div class="logo">🛠</div>
+
+		<nav class="menu">
+		    <a th:href="@{/admin/usuarios/nuevo}">Crear usuario</a>
+			<a th:href="@{/admin/usuarios}" class="active">Gestionar usuarios</a>
+		</nav>
+
+		<div class="usuario-menu">
+
+		    <span class="usuario-nombre"
+		          th:text="${nombreUsuario}">
+		        Usuario
+		    </span>
+
+		    <div class="dropdown">
+		        <a th:href="@{/logout}">
+		            Cerrar sesión
+		        </a>
+		    </div>
+
+		</div>
+    </header>
+	
+	<a th:href="@{/admin/home}">
+	    ← Volver al panel
+	</a>
+
+    <main class="contenido">
+
+        <section class="tabla-contenedor">
+
+            <h1>Usuarios del sistema</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Activo</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="usuario : ${usuarios}"
+                        th:onclick="|window.location.href='@{/admin/usuarios/{id}(id=${usuario.id})}'|"
+                        class="fila-click">
+
+                        <td th:text="${usuario.id}">1</td>
+                        <td th:text="${usuario.username}">oscar</td>
+                        <td th:text="${usuario.nombre}">Oscar</td>
+                        <td th:text="${usuario.email}">oscar@centro.com</td>
+                        <td th:text="${usuario.rol}">USER</td>
+                        <td th:text="${usuario.activo ? 'Sí' : 'No'}">Sí</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p class="sin-datos" th:if="${#lists.isEmpty(usuarios)}">
+                No hay usuarios registrados.
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <span>Términos y servicios</span>
+        <span>Privacidad</span>
+        <span>Documentos</span>
+        <span>Contacto de soporte</span>
+        <span>Manejar cookies</span>
+    </footer>
+
+</div>
+
+</body>
+</html>

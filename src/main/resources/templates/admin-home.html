@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administrador</title>
+    <link rel="stylesheet" th:href="@{/css/admin-form.css}">
+</head>
+<body>
+
+<div class="layout">
+
+    <header class="topbar">
+        <div class="logo">🛠</div>
+
+        <nav class="menu">
+			<h1>Panel de administración</h1>	
+        </nav>
+
+		<div class="usuario-menu">
+
+		    <span class="usuario-nombre"
+		          th:text="${nombreUsuario}">
+		        Usuario
+		    </span>
+
+		    <div class="dropdown">
+		        <a th:href="@{/logout}">
+		            Cerrar sesión
+		        </a>
+		    </div>
+
+		</div>
+    </header>
+
+    <main class="contenido">
+        <section class="panel-admin">
+            <h1>¿Que quieres hacer?</h1>
+
+            <div class="acciones-admin">
+				<a th:href="@{/admin/aulas/nueva}" class="card-admin">
+				    <h2>Gestionar aulas</h2>
+				    <p>Crear, modificar o eliminar aulas o espacios del centro.</p>
+				</a>
+
+				<a th:href="@{/admin/usuarios/nuevo}" class="card-admin">
+				    <h2>Gestionar usuarios</h2>
+				    <p>Crear, editar o eliminar usuarios, mantenimiento o administradores.</p>
+				</a>	
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span>Términos y servicios</span>
+        <span>Privacidad</span>
+        <span>Documentos</span>
+        <span>Contacto de soporte</span>
+        <span>Manejar cookies</span>
+    </footer>
+
+</div>
+
+</body>
+</html>

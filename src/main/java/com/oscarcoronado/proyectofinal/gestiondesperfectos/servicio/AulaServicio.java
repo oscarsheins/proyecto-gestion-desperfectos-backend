@@ -11,5 +11,6 @@ public interface AulaServicio {
 	void eliminarTodosLasAulas();
 	void eliminarAulaPorid(Long id);
 	AulaDto crearAula(AulaDto aulaDto);
+	AulaDto editar(Long id, AulaDto aulaDto);
 
 }

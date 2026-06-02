@@ -13,19 +13,18 @@ import com.oscarcoronado.proyectofinal.gestiondesperfectos.repositorio.AulaRepos
 import com.oscarcoronado.proyectofinal.gestiondesperfectos.servicio.AulaServicio;
 
 @Service
-public class AulaServicioImp implements AulaServicio{
-	
+public class AulaServicioImp implements AulaServicio {
+
 	@Autowired
 	private AulaRepositorio aulaRepositorio;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@Override
 	public List<AulaDto> listarAulas() {
 		List<Aula> aulasModelo = aulaRepositorio.findAll();
-		return aulasModelo.stream().map(aula -> modelMapper.map(aula, AulaDto.class))
-				.collect(Collectors.toList());
+		return aulasModelo.stream().map(aula -> modelMapper.map(aula, AulaDto.class)).collect(Collectors.toList());
 	}
 
 	@Override
@@ -37,28 +36,55 @@ public class AulaServicioImp implements AulaServicio{
 	@Override
 	public void eliminarTodosLasAulas() {
 		aulaRepositorio.deleteAll();
-		
+
 	}
 
 	@Override
 	public void eliminarAulaPorid(Long id) {
-		
-	    if (!aulaRepositorio.existsById(id)) {
-	        throw new IllegalArgumentException("El aula con id " + id + " no existe");
-	    }
-		
+
+		if (!aulaRepositorio.existsById(id)) {
+			throw new IllegalArgumentException("El aula con id " + id + " no existe");
+		}
+
 		aulaRepositorio.deleteById(id);
-		
+
 	}
-	
+
 	@Override
 	public AulaDto crearAula(AulaDto aulaDto) {
 
 		Aula aula = modelMapper.map(aulaDto, Aula.class);
 		Aula aulaGurdada = aulaRepositorio.save(aula);
 		return modelMapper.map(aulaGurdada, AulaDto.class);
-		
+
 	}
-	
+
+	@Override
+	public AulaDto editar(Long id, AulaDto aulaDto) {
+		if (id == null) {
+			throw new RuntimeException("id es obligatorio");
+		}
+
+		if (aulaDto == null) {
+			throw new RuntimeException("Datos del aula obligatorios");
+		}
+
+		if (aulaDto.getCodigo() == null || aulaDto.getCodigo().trim().isEmpty()) {
+			throw new RuntimeException("El código del aula es obligatorio");
+		}
+
+		if (aulaDto.getDescripcion() == null || aulaDto.getDescripcion().trim().isEmpty()) {
+			throw new RuntimeException("La descripción del aula es obligatoria");
+		}
+
+		Aula aula = aulaRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Aula no encontrada"));
+
+		aula.setCodigo(aulaDto.getCodigo().trim());
+		aula.setDescripcion(aulaDto.getDescripcion().trim());
+
+		Aula aulaActualizada = aulaRepositorio.save(aula);
+
+		return new AulaDto(aulaActualizada.getId(), aulaActualizada.getCodigo(), aulaActualizada.getDescripcion());
+	}
 
 }

@@ -2,6 +2,7 @@ package com.oscarcoronado.proyectofinal.gestiondesperfectos.servicio;
 
 import java.util.List;
 
+import com.oscarcoronado.proyectofinal.gestiondesperfectos.dto.UsuarioCrearDto;
 import com.oscarcoronado.proyectofinal.gestiondesperfectos.dto.UsuarioDto;
 import com.oscarcoronado.proyectofinal.gestiondesperfectos.entidad.Usuario;
 
@@ -12,5 +13,8 @@ public interface UsuarioServicio {
 	void eliminarTodosLosUsuarios();
 	void eliminarUsuarioPorId(Long id);
 	Usuario login(String usuario, String password);
-
+	UsuarioCrearDto crearUsuario(UsuarioCrearDto usuarioCrearDto);
+	UsuarioCrearDto editar(Long id, UsuarioCrearDto usuarioCrearDto);
+	List<UsuarioCrearDto> listarUsuariosC();
+	UsuarioCrearDto buscarUsuarioPorIdC(Long id);
 }

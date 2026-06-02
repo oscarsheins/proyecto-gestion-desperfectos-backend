@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalle incidencia</title>
-    <link rel="stylesheet" th:href="@{/css/mantenimiento-detalle.css}">
+    <link rel="stylesheet" th:href="@{/css/mis-incidencia-detalle.css}">
 </head>
 <body>
 
@@ -13,7 +13,8 @@
         <div class="logo">🛠</div>
 
         <nav class="menu">
-            <a href="#" class="active">Resolver incidencias</a>
+            <a th:href="@{/home}">Crear incidencia</a>
+            <a th:href="@{/mis-incidencias}" class="active">Estado de mis incidencias</a>
         </nav>
 
 		<div class="usuario-menu">
@@ -37,12 +38,9 @@
         <section class="detalle-card">
 
             <div class="detalle-header">
-                <a class="volver" th:href="@{/mantenimiento/home}">←</a>
-
-                <div class="usuario-incidencia">
-                    <div class="avatar">👤</div>
-                    <span th:text="${incidencia.usuarioUsername}">Nickname</span>
-                </div>
+                <a class="volver" th:href="@{/mis-incidencias}">←</a>
+                <span th:text="${incidencia.aulaCodigo}">Aula x</span>
+                <span></span>
             </div>
 
             <div class="detalle-body">
@@ -58,7 +56,7 @@
 
                             <p>
                                 <strong>Id:</strong>
-                                <span th:text="${incidencia.id}">INC-2025-0131</span>
+                                <span th:text="|#INC-${incidencia.id}|">#INC-1</span>
                             </p>
 
                             <p>
@@ -69,15 +67,16 @@
 
                         <div>
                             <p>
-                                <strong>Fecha creación:</strong>
-                                <span th:text="${#temporals.format(incidencia.fechaCreacion, 'dd/MM/yyyy')}">12/02/2025</span>
+                                <strong>Fecha creación:</strong><br>
+                                <span th:text="${#temporals.format(incidencia.fechaCreacion, 'dd/MM/yyyy')}">
+                                    12/02/2025
+                                </span>
                             </p>
 
                             <p>
-                                <strong>Fecha actualización:</strong>
+                                <strong>Fecha actualización:</strong><br>
                                 <span th:if="${incidencia.fechaActualizacion != null}"
                                       th:text="${#temporals.format(incidencia.fechaActualizacion, 'dd/MM/yyyy')}">
-                                    12/02/2025
                                 </span>
 
                                 <span th:if="${incidencia.fechaActualizacion == null}">—</span>
@@ -94,17 +93,17 @@
 
                     <div class="acciones">
 
-                        <form th:action="@{/mantenimiento/incidencia/{id}/en-curso(id=${incidencia.id})}"
-                              method="post">
-                            <button type="submit" class="btn curso">
-                                — En progreso
-                            </button>
-                        </form>
+                        <a class="btn editar"
+                           th:href="@{/mis-incidencias/{id}/editar(id=${incidencia.id})}">
+                            Editar incidencia
+                        </a>
 
-                        <form th:action="@{/mantenimiento/incidencia/{id}/finalizar(id=${incidencia.id})}"
-                              method="post">
-                            <button type="submit" class="btn finalizar">
-                                ✕ Finalizar
+                        <form th:action="@{/mis-incidencias/{id}/eliminar(id=${incidencia.id})}"
+                              method="post"
+                              onsubmit="return confirm('¿Seguro que quieres eliminar esta incidencia?');">
+
+                            <button type="submit" class="btn eliminar">
+                                Eliminar
                             </button>
                         </form>
 
@@ -128,7 +127,6 @@
         <span>Documentos</span>
         <span>Contacto de soporte</span>
         <span>Manejar cookies</span>
-        <span>No mostrar mi información personal</span>
     </footer>
 
 </div>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear usuario</title>
+    <link rel="stylesheet" th:href="@{/css/admin-form.css}">
+</head>
+<body>
+
+<div class="layout">
+
+    <header class="topbar">
+        <div class="logo">🛠</div>
+
+		<nav class="menu">
+		    <a th:href="@{/admin/usuarios/nuevo}" class="active">Crear usuario</a>
+		    <a th:href="@{/admin/usuarios}">Gestionar usuarios</a>
+		</nav>
+
+		<div class="usuario-menu">
+
+		    <span class="usuario-nombre"
+		          th:text="${nombreUsuario}">
+		        Usuario
+		    </span>
+
+		    <div class="dropdown">
+		        <a th:href="@{/logout}">
+		            Cerrar sesión
+		        </a>
+		    </div>
+
+		</div>
+    </header>
+	
+	<a th:href="@{/admin/home}">
+	    ← Volver al panel
+	</a>
+
+    <main class="contenido">
+
+        <form class="formulario"
+              th:action="@{/admin/usuarios/nuevo}"
+              th:object="${usuarioNuevo}"
+              method="post">
+
+            <h1>Crear usuario</h1>
+
+            <label>Username</label>
+            <input type="text"
+                   th:field="*{username}"
+                   placeholder="Ejemplo: oscar"
+                   required>
+
+            <label>Nombre completo</label>
+            <input type="text"
+                   th:field="*{nombre}"
+                   placeholder="Ejemplo: Oscar Coronado"
+                   required>
+
+            <label>Email</label>
+            <input type="email"
+                   th:field="*{email}"
+                   placeholder="Ejemplo: usuario@centro.com"
+                   required>
+
+            <label>Contraseña</label>
+            <input type="password"
+                   th:field="*{password}"
+                   placeholder="Contraseña temporal"
+                   required>
+
+            <label>Rol</label>
+            <select th:field="*{rol}" required>
+                <option value="">Selecciona un rol</option>
+                <option value="USER">Usuario básico</option>
+                <option value="MANTENIMIENTO">Mantenimiento</option>
+                <option value="ADMIN">Administrador</option>
+            </select>
+
+            <p class="mensaje" th:if="${mensaje}" th:text="${mensaje}"></p>
+            <p class="error" th:if="${error}" th:text="${error}"></p>
+
+            <button type="submit">Crear usuario</button>
+
+        </form>
+
+    </main>
+
+    <footer>
+        <span>Términos y servicios</span>
+        <span>Privacidad</span>
+        <span>Documentos</span>
+        <span>Contacto de soporte</span>
+        <span>Manejar cookies</span>
+    </footer>
+
+</div>
+
+</body>
+</html>

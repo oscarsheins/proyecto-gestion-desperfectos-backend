@@ -33,14 +33,15 @@ body {
 .menu {
     display: flex;
     justify-content: center;
+    gap: clamp(60px, 12vw, 220px);
 }
 
 .menu a {
     color: white;
     text-decoration: none;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
-    padding-bottom: 18px;
+    padding-bottom: 12px;
 }
 
 .menu .active {
@@ -48,14 +49,9 @@ body {
 }
 
 .usuario {
+    text-align: right;
     font-size: 13px;
     font-weight: bold;
-}
-
-.usuario small {
-    display: block;
-    margin-top: 4px;
-    font-size: 10px;
 }
 
 .contenido {
@@ -67,51 +63,32 @@ body {
 }
 
 .detalle-card {
-    width: min(760px, 100%);
+    width: min(820px, 100%);
     border: 1px solid #9ca3af;
     border-radius: 12px;
     overflow: hidden;
 }
 
 .detalle-header {
-    height: 46px;
+    height: 48px;
     border-bottom: 1px solid #9ca3af;
     display: grid;
-    grid-template-columns: 60px 1fr 60px;
+    grid-template-columns: 70px 1fr 70px;
     align-items: center;
+    text-align: center;
+    font-weight: bold;
 }
 
 .volver {
     color: white;
     text-decoration: none;
     font-size: 34px;
-    text-align: center;
-}
-
-.usuario-incidencia {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 14px;
-    font-size: 13px;
-    font-weight: bold;
-}
-
-.avatar {
-    width: 28px;
-    height: 28px;
-    background-color: #d9c2ff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
 }
 
 .detalle-body {
-    min-height: 365px;
+    min-height: 420px;
     display: grid;
-    grid-template-columns: 1.25fr 0.95fr;
+    grid-template-columns: 1.35fr 0.95fr;
 }
 
 .info {
@@ -121,12 +98,12 @@ body {
 .grid-info {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 36px;
+    gap: 42px;
 }
 
 p {
-    margin: 0 0 18px;
-    font-size: 12px;
+    margin: 0 0 20px;
+    font-size: 13px;
     color: #d1d5db;
 }
 
@@ -135,7 +112,7 @@ strong {
 }
 
 .descripcion {
-    margin-top: 18px;
+    margin-top: 16px;
 }
 
 .descripcion p {
@@ -147,7 +124,9 @@ strong {
 
 .acciones {
     display: flex;
-    margin-top: 48px;
+    gap: 12px;
+    margin-top: 34px;
+    align-items: center;
 }
 
 .acciones form {
@@ -155,22 +134,27 @@ strong {
 }
 
 .btn {
-    width: 125px;
     height: 38px;
     border: none;
-    color: black;
+    border-radius: 999px;
+    padding: 0 22px;
     font-weight: bold;
     cursor: pointer;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.curso {
-    background-color: #ff8c2a;
-    border-radius: 22px 0 0 22px;
+.editar {
+    background-color: #f59e0b;
+    color: black;
 }
 
-.finalizar {
+.eliminar {
     background-color: #dc2626;
-    border-radius: 0 22px 22px 0;
+    color: white;
 }
 
 .imagen {
@@ -245,6 +229,15 @@ footer {
         padding: 28px 20px;
     }
 
+    .usuario {
+        text-align: center;
+    }
+
+    .menu {
+        flex-wrap: wrap;
+        gap: 28px;
+    }
+
     .detalle-body {
         grid-template-columns: 1fr;
     }
@@ -262,6 +255,7 @@ footer {
 
     .acciones {
         justify-content: center;
+        flex-wrap: wrap;
     }
 
     footer {

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle aula</title>
+    <link rel="stylesheet" th:href="@{/css/admin-aula-detalle.css}">
+</head>
+<body>
+
+<div class="layout">
+	
+	
+
+    <header class="topbar">
+        <div class="logo">🛠</div>
+
+        <nav class="menu">
+            <a th:href="@{/admin/aulas/nueva}">Crear aula</a>
+            <a th:href="@{/admin/aulas}" class="active">Gestionar aulas</a>
+        </nav>
+
+		<div class="usuario-menu">
+
+		    <span class="usuario-nombre"
+		          th:text="${nombreUsuario}">
+		        Usuario
+		    </span>
+
+		    <div class="dropdown">
+		        <a th:href="@{/logout}">
+		            Cerrar sesión
+		        </a>
+		    </div>
+
+		</div>
+    </header>
+
+    <main class="contenido">
+
+        <section class="detalle-card">
+
+            <a class="volver"
+               th:href="@{/admin/aulas}">
+                ← Volver
+            </a>
+
+            <h1 th:text="${aula.codigo}">
+                Aula A-101
+            </h1>
+
+            <div class="info">
+
+                <div class="campo">
+                    <label>Código</label>
+                    <p th:text="${aula.codigo}"></p>
+                </div>
+
+                <div class="campo">
+                    <label>Descripción</label>
+                    <div class="descripcion">
+                        <p th:text="${aula.descripcion}"></p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="acciones">
+
+                <a class="btn editar"
+                   th:href="@{/admin/aulas/{id}/editar(id=${aula.id})}">
+                    Editar aula
+                </a>
+
+                <form th:action="@{/admin/aulas/{id}/eliminar(id=${aula.id})}"
+                      method="post">
+
+                    <button type="submit"
+                            class="btn eliminar">
+                        Eliminar aula
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

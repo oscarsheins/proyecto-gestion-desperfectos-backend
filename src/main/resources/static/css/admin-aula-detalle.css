@@ -1,0 +1,204 @@
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    margin:0;
+    min-height:100%;
+    background:#0d1117;
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.layout{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+.topbar{
+    height:96px;
+    background:#05080d;
+    display:grid;
+    grid-template-columns:90px 1fr 200px;
+    align-items:center;
+    padding:0 56px;
+}
+
+.logo{
+    font-size:34px;
+}
+
+.menu{
+    display:flex;
+    justify-content:center;
+    gap:120px;
+}
+
+.menu a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    padding-bottom:8px;
+}
+
+.menu .active{
+    border-bottom:2px solid #d97757;
+}
+
+.usuario{
+    text-align:right;
+    font-weight:bold;
+}
+
+.usuario small{
+    display:block;
+    color:#9ca3af;
+    margin-top:4px;
+}
+
+.contenido{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding:50px 20px;
+}
+
+.detalle-card{
+    width:700px;
+    background:#0b1220;
+    border:1px solid #374151;
+    border-radius:12px;
+    padding:30px;
+}
+
+.volver{
+    text-decoration:none;
+    color:#9ca3af;
+    font-size:14px;
+}
+
+.detalle-card h1{
+    text-align:center;
+    margin:20px 0 40px;
+    font-size:32px;
+}
+
+.info{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+.campo label{
+    display:block;
+    color:#9ca3af;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+.campo p{
+    margin:0;
+    font-size:18px;
+}
+
+.descripcion{
+    border:1px solid #374151;
+    border-radius:8px;
+    padding:18px;
+    min-height:120px;
+}
+
+.acciones{
+    margin-top:40px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+}
+
+.btn{
+    border:none;
+    border-radius:8px;
+    padding:12px 24px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.editar{
+    background:#f59e0b;
+    color:black;
+}
+
+.eliminar{
+    background:#dc2626;
+    color:white;
+}
+
+.usuario-menu {
+    position: relative;
+    display: inline-block;
+    text-align: right;
+}
+
+.usuario-nombre {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 25px;
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    min-width: 140px;
+    z-index: 1000;
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+}
+
+.dropdown a:hover {
+    background-color: #30363d;
+}
+
+.usuario-menu:hover .dropdown {
+    display: block;
+}
+
+@media(max-width:768px){
+
+    .topbar{
+        grid-template-columns:1fr;
+        height:auto;
+        gap:15px;
+        padding:20px;
+        text-align:center;
+    }
+
+    .menu{
+        flex-wrap:wrap;
+        gap:25px;
+    }
+
+    .usuario{
+        text-align:center;
+    }
+
+    .detalle-card{
+        width:100%;
+    }
+
+    .acciones{
+        flex-direction:column;
+    }
+}

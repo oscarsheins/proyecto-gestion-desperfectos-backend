@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Crear incidencia</title>
+    <title>Editar incidencia</title>
     <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <body>
@@ -13,8 +13,8 @@
         <div class="logo">🛠</div>
 
         <nav class="menu">
-            <a href="#" class="active">Crear incidencia</a>
-            <a th:href="@{/mis-incidencias}">Estado de mis incidencias</a>
+            <a th:href="@{/home}">Crear incidencia</a>
+            <a th:href="@{/mis-incidencias}" class="active">Estado de mis incidencias</a>
         </nav>
 
 		<div class="usuario-menu">
@@ -36,34 +36,37 @@
     <main class="contenido">
 
         <form class="formulario"
-              th:action="@{/home/incidencia}"
+              th:action="@{/mis-incidencias/{id}/editar(id=${incidencia.id})}"
               th:object="${incidencia}"
               method="post">
 
-            <h1>Crear incidencia</h1>
+            <h1>Editar incidencia</h1>
 
             <label>Tipo de incidencia</label>
-            <input type="text" th:field="*{titulo}" placeholder="Selecciona el tipo de incidencia">
+            <input type="text"
+                   th:field="*{titulo}"
+                   placeholder="Selecciona el tipo de incidencia"
+                   required>
 
             <label>Ubicación</label>
-			<input type="number"
-			       th:field="*{aulaId}"
-			       placeholder="Introduce el ID del aula"
-			       required>
+            <input type="number"
+                   th:field="*{aulaId}"
+                   placeholder="Introduce el ID del aula"
+                   required>
 
             <label>Descripción</label>
-            <textarea th:field="*{descripcion}" placeholder="Describe la incidencia con el mayor detalle posible..."></textarea>
+            <textarea th:field="*{descripcion}"
+                      placeholder="Describe la incidencia con el mayor detalle posible..."
+                      required></textarea>
 
             <div class="imagen-box">
                 <div class="camara">📷</div>
-                <p>Arrastre o seleccione una imagen</p>
+                <p>Imagen no editable de momento</p>
             </div>
-			
-			<p class="mensaje" th:if="${mensaje}" th:text="${mensaje}"></p>
 
-			<p class="error" th:if="${error}" th:text="${error}"></p>
+            <p class="error" th:if="${error}" th:text="${error}"></p>
 
-            <button type="submit">Enviar incidencia</button>
+            <button type="submit">Guardar cambios</button>
 
         </form>
 

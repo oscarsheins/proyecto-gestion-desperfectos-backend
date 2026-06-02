@@ -17,9 +17,20 @@
             <a href="#" class="active">Estado de mis incidencias</a>
         </nav>
 
-        <div class="usuario">
-            <span th:text="${nombreUsuario}">Usuario</span>
-        </div>
+		<div class="usuario-menu">
+
+		    <span class="usuario-nombre"
+		          th:text="${nombreUsuario}">
+		        Usuario
+		    </span>
+
+		    <div class="dropdown">
+		        <a th:href="@{/logout}">
+		            Cerrar sesión
+		        </a>
+		    </div>
+
+		</div>
     </header>
 
     <main class="contenido">
@@ -41,7 +52,9 @@
 			    </thead>
 
 			    <tbody>
-			        <tr th:each="incidencia : ${incidencias}">
+					<tr th:each="incidencia : ${incidencias}"
+					    th:onclick="|window.location.href='@{/mis-incidencias/{id}(id=${incidencia.id})}'|"
+					    class="fila-click">
 
 			            <td th:text="${incidencia.titulo}">Proyector roto</td>
 
