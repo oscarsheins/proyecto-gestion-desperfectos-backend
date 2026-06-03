@@ -1,3 +1,7 @@
+
+/*Este formulario sirve tanto para las vistas mis-incidencias-detalle*/
+/*como para mantenimiento-incidencia-detalle*/
+
 * {
     box-sizing: border-box;
 }
@@ -17,6 +21,10 @@ body {
     flex-direction: column;
 }
 
+/* ===========================
+   CABECERA
+=========================== */
+
 .topbar {
     height: 112px;
     background-color: #05080d;
@@ -33,157 +41,24 @@ body {
 .menu {
     display: flex;
     justify-content: center;
+    gap: clamp(60px, 12vw, 220px);
 }
 
 .menu a {
     color: white;
     text-decoration: none;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
-    padding-bottom: 18px;
+    padding-bottom: 12px;
 }
 
 .menu .active {
     border-bottom: 3px solid #d16a5a;
 }
 
-.usuario {
-    font-size: 13px;
-    font-weight: bold;
-}
-
-.usuario small {
-    display: block;
-    margin-top: 4px;
-    font-size: 10px;
-}
-
-.contenido {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 45px 20px;
-}
-
-.detalle-card {
-    width: min(760px, 100%);
-    border: 1px solid #9ca3af;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.detalle-header {
-    height: 46px;
-    border-bottom: 1px solid #9ca3af;
-    display: grid;
-    grid-template-columns: 60px 1fr 60px;
-    align-items: center;
-}
-
-.volver {
-    color: white;
-    text-decoration: none;
-    font-size: 34px;
-    text-align: center;
-}
-
-.usuario-incidencia {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 14px;
-    font-size: 13px;
-    font-weight: bold;
-}
-
-.avatar {
-    width: 28px;
-    height: 28px;
-    background-color: #d9c2ff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-}
-
-.detalle-body {
-    min-height: 365px;
-    display: grid;
-    grid-template-columns: 1.25fr 0.95fr;
-}
-
-.info {
-    padding: 34px 38px;
-}
-
-.grid-info {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 36px;
-}
-
-p {
-    margin: 0 0 18px;
-    font-size: 12px;
-    color: #d1d5db;
-}
-
-strong {
-    color: white;
-}
-
-.descripcion {
-    margin-top: 18px;
-}
-
-.descripcion p {
-    margin-top: 18px;
-    line-height: 1.6;
-    border-bottom: 1px dotted #9ca3af;
-    padding-bottom: 18px;
-}
-
-.acciones {
-    display: flex;
-    margin-top: 48px;
-}
-
-.acciones form {
-    margin: 0;
-}
-
-.btn {
-    width: 125px;
-    height: 38px;
-    border: none;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.curso {
-    background-color: #ff8c2a;
-    border-radius: 22px 0 0 22px;
-}
-
-.finalizar {
-    background-color: #dc2626;
-    border-radius: 0 22px 22px 0;
-}
-
-.imagen {
-    border-left: 1px solid #9ca3af;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.placeholder-img {
-    font-size: 92px;
-    color: #f5efff;
-}
+/* ===========================
+   USUARIO
+=========================== */
 
 .usuario-menu {
     position: relative;
@@ -223,6 +98,185 @@ strong {
     display: block;
 }
 
+/* ===========================
+   CONTENIDO
+=========================== */
+
+.contenido {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 45px 20px;
+}
+
+.detalle-card {
+    width: min(820px, 100%);
+    border: 1px solid #9ca3af;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* ===========================
+   CABECERA TARJETA
+=========================== */
+
+.detalle-header {
+    height: 48px;
+    border-bottom: 1px solid #9ca3af;
+    display: grid;
+    grid-template-columns: 70px 1fr 70px;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+}
+
+.volver {
+    color: white;
+    text-decoration: none;
+    font-size: 34px;
+}
+
+.usuario-incidencia {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.avatar {
+    width: 28px;
+    height: 28px;
+    background-color: #d9c2ff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+/* ===========================
+   CUERPO
+=========================== */
+
+.detalle-body {
+    min-height: 420px;
+    display: grid;
+    grid-template-columns: 1.35fr 0.95fr;
+}
+
+.info {
+    padding: 34px 38px;
+}
+
+.grid-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 42px;
+}
+
+p {
+    margin: 0 0 20px;
+    font-size: 13px;
+    color: #d1d5db;
+}
+
+strong {
+    color: white;
+}
+
+.descripcion {
+    margin-top: 16px;
+}
+
+.descripcion p {
+    margin-top: 18px;
+    line-height: 1.6;
+    border-bottom: 1px dotted #9ca3af;
+    padding-bottom: 18px;
+}
+
+/* ===========================
+   ACCIONES
+=========================== */
+
+.acciones {
+    display: flex;
+    gap: 12px;
+    margin-top: 34px;
+    align-items: center;
+}
+
+.acciones form {
+    margin: 0;
+}
+
+.btn {
+    height: 38px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ---------- Usuario ---------- */
+
+.editar {
+    background-color: #f59e0b;
+    color: black;
+    border-radius: 999px;
+    padding: 0 22px;
+}
+
+.eliminar {
+    background-color: #dc2626;
+    color: white;
+    border-radius: 999px;
+    padding: 0 22px;
+}
+
+/* ---------- Mantenimiento ---------- */
+
+.curso {
+    width: 125px;
+    background-color: #ff8c2a;
+    color: black;
+    border-radius: 22px 0 0 22px;
+}
+
+.finalizar {
+    width: 125px;
+    background-color: #dc2626;
+    color: white;
+    border-radius: 0 22px 22px 0;
+}
+
+/* ===========================
+   IMAGEN
+=========================== */
+
+.imagen {
+    border-left: 1px solid #9ca3af;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.placeholder-img {
+    font-size: 92px;
+    color: #f5efff;
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+
 footer {
     min-height: 48px;
     background-color: #161b22;
@@ -235,6 +289,10 @@ footer {
     padding: 10px 20px;
 }
 
+/* ===========================
+   RESPONSIVE
+=========================== */
+
 @media (max-width: 768px) {
 
     .topbar {
@@ -243,6 +301,11 @@ footer {
         gap: 22px;
         text-align: center;
         padding: 28px 20px;
+    }
+
+    .menu {
+        flex-wrap: wrap;
+        gap: 28px;
     }
 
     .detalle-body {
@@ -262,6 +325,7 @@ footer {
 
     .acciones {
         justify-content: center;
+        flex-wrap: wrap;
     }
 
     footer {

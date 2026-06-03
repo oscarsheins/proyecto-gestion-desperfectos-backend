@@ -36,19 +36,21 @@ body {
 .menu {
     display: flex;
     justify-content: center;
-    gap: clamp(45px, 12vw, 190px);
+    gap: clamp(60px, 14vw, 250px);
 }
+
+
 
 .menu a {
     color: white;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 22px;
     font-weight: bold;
-    padding-bottom: 8px;
+    padding-bottom: 18px;
 }
 
 .menu .active {
-    border-bottom: 2px solid #d16a5a;
+    border-bottom: 3px solid #d16a5a;
 }
 
 .usuario {
@@ -226,19 +228,21 @@ body {
 .menu {
     display: flex;
     justify-content: center;
-    gap: clamp(45px, 12vw, 190px);
+    gap: clamp(60px, 14vw, 250px);
 }
+
+
 
 .menu a {
     color: white;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 22px;
     font-weight: bold;
-    padding-bottom: 8px;
+    padding-bottom: 18px;
 }
 
 .menu .active {
-    border-bottom: 2px solid #d16a5a;
+    border-bottom: 3px solid #d16a5a;
 }
 
 .usuario {

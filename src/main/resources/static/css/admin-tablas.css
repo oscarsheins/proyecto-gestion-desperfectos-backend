@@ -33,15 +33,21 @@ body {
 .menu {
     display: flex;
     justify-content: center;
-    gap: clamp(30px, 8vw, 120px);
+    gap: clamp(60px, 14vw, 250px);
 }
+
+
 
 .menu a {
     color: white;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 22px;
     font-weight: bold;
-    padding-bottom: 8px;
+    padding-bottom: 18px;
+}
+
+.menu .active {
+    border-bottom: 3px solid #d16a5a;
 }
 
 .usuario {

@@ -35,19 +35,22 @@ body {
 
 .menu {
     display: flex;
-    gap: clamp(40px, 12vw, 220px);
+    justify-content: center;
+    gap: clamp(60px, 14vw, 250px);
 }
+
+
 
 .menu a {
     color: white;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 22px;
     font-weight: bold;
-    padding-bottom: 8px;
+    padding-bottom: 18px;
 }
 
 .menu .active {
-    border-bottom: 2px solid white;
+    border-bottom: 3px solid #d16a5a;
 }
 
 .usuario {

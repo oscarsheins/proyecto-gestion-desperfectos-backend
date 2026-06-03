@@ -1,3 +1,6 @@
+
+/*Este css funciona tanto para la vista de admin-aula-detalle como admin-usuario-detalle*/
+
 * {
     box-sizing: border-box;
 }
@@ -16,6 +19,10 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+/* ==========================
+   CABECERA
+========================== */
 
 .topbar {
     height: 96px;
@@ -47,6 +54,10 @@ body {
 .menu .active {
     border-bottom: 2px solid #d16a5a;
 }
+
+/* ==========================
+   USUARIO
+========================== */
 
 .usuario-menu {
     position: relative;
@@ -88,6 +99,10 @@ body {
     display: block;
 }
 
+/* ==========================
+   CONTENIDO
+========================== */
+
 .contenido {
     flex: 1;
     display: flex;
@@ -122,6 +137,10 @@ body {
     font-size: 32px;
 }
 
+/* ==========================
+   DATOS
+========================== */
+
 .info {
     display: flex;
     flex-direction: column;
@@ -146,11 +165,35 @@ body {
     font-size: 15px;
 }
 
+/* Usuario */
+
 .doble {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
+
+/* Aula */
+
+.descripcion {
+    margin: 0;
+}
+
+.descripcion p {
+    margin: 0;
+    padding: 14px 16px;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    color: #d1d5db;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 120px;
+}
+
+/* ==========================
+   BOTONES
+========================== */
 
 .acciones {
     margin-top: 40px;
@@ -187,6 +230,10 @@ body {
     background-color: #dc2626;
     color: white;
 }
+
+/* ==========================
+   RESPONSIVE
+========================== */
 
 @media (max-width: 768px) {
 
