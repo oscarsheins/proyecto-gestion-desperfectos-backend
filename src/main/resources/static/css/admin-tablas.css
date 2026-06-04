@@ -28,6 +28,15 @@ body {
 
 .logo {
     font-size: 34px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.logo:hover {
+    color: #d16a5a;
+    transform: scale(1.1);
 }
 
 .menu {
@@ -36,14 +45,18 @@ body {
     gap: clamp(60px, 14vw, 250px);
 }
 
-
-
 .menu a {
     color: white;
     text-decoration: none;
     font-size: 22px;
     font-weight: bold;
     padding-bottom: 18px;
+	transition: 0.2s;
+}
+
+.menu a:hover {
+    color: #d16a5a;
+    transform: translateY(-2px);
 }
 
 .menu .active {
@@ -114,7 +127,7 @@ tbody tr:last-child td {
 }
 
 .fila-click:hover {
-    background-color: #161b22;
+    background-color: rgba(209, 106, 90, 0.15);
 }
 
 .sin-datos {
@@ -125,20 +138,28 @@ tbody tr:last-child td {
 
 .usuario-menu {
     position: relative;
-    display: inline-block;
     text-align: right;
 }
 
 .usuario-nombre {
     cursor: pointer;
     font-weight: bold;
+    list-style: none;
+    transition: 0.2s;
+}
+
+.usuario-nombre::-webkit-details-marker {
+    display: none;
+}
+
+.usuario-nombre:hover {
+    color: #d16a5a;
 }
 
 .dropdown {
-    display: none;
     position: absolute;
     right: 0;
-    top: 25px;
+    top: 28px;
     background-color: #161b22;
     border: 1px solid #30363d;
     border-radius: 6px;
@@ -155,10 +176,7 @@ tbody tr:last-child td {
 
 .dropdown a:hover {
     background-color: #30363d;
-}
-
-.usuario-menu:hover .dropdown {
-    display: block;
+    color: #d16a5a;
 }
 
 footer {

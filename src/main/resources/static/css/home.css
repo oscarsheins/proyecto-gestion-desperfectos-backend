@@ -31,6 +31,15 @@ body {
 
 .logo {
     font-size: 34px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.logo:hover {
+    color: #d16a5a;
+    transform: scale(1.1);
 }
 
 .menu {
@@ -51,6 +60,61 @@ body {
 
 .menu .active {
     border-bottom: 3px solid #d16a5a;
+}
+
+.menu a {
+    transition: 0.2s;
+}
+
+.menu a:hover {
+    color: #d16a5a;
+    transform: translateY(-2px);
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    color: white;
+    padding: 13px 14px;
+    font-size: 14px;
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+    border-color: #d16a5a;
+    box-shadow: 0 0 0 2px rgba(209, 106, 90, 0.15);
+    transition: 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #d16a5a;
+    box-shadow: 0 0 0 2px rgba(209, 106, 90, 0.25);
+}
+
+button {
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #238636;
+    transform: translateY(-2px);
+}
+
+.imagen-box {
+    transition: 0.2s;
+}
+
+.imagen-box:hover {
+    border-color: #d16a5a;
+    color: white;
 }
 
 .usuario {
@@ -129,20 +193,28 @@ textarea::placeholder {
 
 .usuario-menu {
     position: relative;
-    display: inline-block;
     text-align: right;
 }
 
 .usuario-nombre {
     cursor: pointer;
     font-weight: bold;
+    list-style: none;
+    transition: 0.2s;
+}
+
+.usuario-nombre::-webkit-details-marker {
+    display: none;
+}
+
+.usuario-nombre:hover {
+    color: #d16a5a;
 }
 
 .dropdown {
-    display: none;
     position: absolute;
     right: 0;
-    top: 25px;
+    top: 28px;
     background-color: #161b22;
     border: 1px solid #30363d;
     border-radius: 6px;
@@ -159,10 +231,7 @@ textarea::placeholder {
 
 .dropdown a:hover {
     background-color: #30363d;
-}
-
-.usuario-menu:hover .dropdown {
-    display: block;
+    color: #d16a5a;
 }
 
 button {

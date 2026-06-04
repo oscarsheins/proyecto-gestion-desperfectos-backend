@@ -35,26 +35,46 @@ body {
 }
 
 .logo {
-    font-size: 40px;
+    font-size: 34px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.logo:hover {
+    color: #d16a5a;
+    transform: scale(1.1);
 }
 
 .menu {
     display: flex;
-    justify-content: center;
-    gap: clamp(60px, 12vw, 220px);
+    jus	tify-content: center;
+    gap: clamp(60px, 14vw, 250px);
 }
+
+
 
 .menu a {
     color: white;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
-    padding-bottom: 12px;
+    padding-bottom: 18px;
 }
 
 .menu .active {
     border-bottom: 3px solid #d16a5a;
 }
+
+.menu a {
+    transition: 0.2s;
+}
+
+.menu a:hover {
+    color: #d16a5a;
+    transform: translateY(-2px);
+} 	
 
 /* ===========================
    USUARIO
@@ -62,20 +82,28 @@ body {
 
 .usuario-menu {
     position: relative;
-    display: inline-block;
     text-align: right;
 }
 
 .usuario-nombre {
     cursor: pointer;
     font-weight: bold;
+    list-style: none;
+    transition: 0.2s;
+}
+
+.usuario-nombre::-webkit-details-marker {
+    display: none;
+}
+
+.usuario-nombre:hover {
+    color: #d16a5a;
 }
 
 .dropdown {
-    display: none;
     position: absolute;
     right: 0;
-    top: 25px;
+    top: 28px;
     background-color: #161b22;
     border: 1px solid #30363d;
     border-radius: 6px;
@@ -92,10 +120,7 @@ body {
 
 .dropdown a:hover {
     background-color: #30363d;
-}
-
-.usuario-menu:hover .dropdown {
-    display: block;
+    color: #d16a5a;
 }
 
 /* ===========================
@@ -223,6 +248,31 @@ strong {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+}	
+
+.volver {
+    color: white;
+    text-decoration: none;
+    font-size: 34px;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.volver:hover {
+    color: #d16a5a;
+    transform: translateX(-4px);
 }
 
 /* ---------- Usuario ---------- */

@@ -10,19 +10,19 @@
 <div class="layout">
 
     <header class="topbar">
-        <div class="logo">🛠</div>
+        <a th:href="@{/home}" class="logo">🛠</a>
 
         <nav class="menu">
             <a href="#" class="active">Crear incidencia</a>
             <a th:href="@{/mis-incidencias}">Estado de mis incidencias</a>
         </nav>
 
-		<div class="usuario-menu">
+		<details class="usuario-menu">
 
-		    <span class="usuario-nombre"
-		          th:text="${nombreUsuario}">
+		    <summary class="usuario-nombre"
+		             th:text="${nombreUsuario}">
 		        Usuario
-		    </span>
+		    </summary>
 
 		    <div class="dropdown">
 		        <a th:href="@{/logout}">
@@ -30,7 +30,7 @@
 		        </a>
 		    </div>
 
-		</div>
+		</details>
     </header>
 
     <main class="contenido">
@@ -40,16 +40,19 @@
               th:object="${incidencia}"
               method="post">
 
-            <h1>Crear incidencia</h1>
-
             <label>Tipo de incidencia</label>
             <input type="text" th:field="*{titulo}" placeholder="Selecciona el tipo de incidencia">
 
             <label>Ubicación</label>
-			<input type="number"
-			       th:field="*{aulaId}"
-			       placeholder="Introduce el ID del aula"
-			       required>
+			<select th:field="*{aulaId}" required>
+			    <option value="">Selecciona un aula</option>
+
+			    <option th:each="aula : ${aulas}"
+			            th:value="${aula.id}"
+			            th:text="|${aula.codigo} - ${aula.descripcion}|">
+			        Aula
+			    </option>
+			</select>
 
             <label>Descripción</label>
             <textarea th:field="*{descripcion}" placeholder="Describe la incidencia con el mayor detalle posible..."></textarea>

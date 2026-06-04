@@ -10,17 +10,27 @@
 <div class="layout">
 
     <header class="topbar">
-        <div class="logo">🛠</div>
+        <a th:href="@{}" class="logo">🛠</a>
 
         <nav class="menu">
             <a th:href="@{/admin/usuarios/nuevo}">Crear usuario</a>
             <a th:href="@{/admin/usuarios}" class="active">Gestionar usuarios</a>
         </nav>
 
-        <div class="usuario">
-            <span th:text="${nombreUsuario}">Admin</span>
-            <small>Administrador</small>
-        </div>
+		<details class="usuario-menu">
+
+		    <summary class="usuario-nombre"
+		             th:text="${nombreUsuario}">
+		        Usuario
+		    </summary>
+
+		    <div class="dropdown">
+		        <a th:href="@{/logout}">
+		            Cerrar sesión
+		        </a>
+		    </div>
+
+		</details>
     </header>
 
     <main class="contenido">

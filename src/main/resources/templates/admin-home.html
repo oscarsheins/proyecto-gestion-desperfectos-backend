@@ -10,18 +10,18 @@
 <div class="layout">
 
     <header class="topbar">
-        <div class="logo">🛠</div>
+        <a th:href="@{/}" class="logo">🛠</a>
 
         <nav class="menu">
 			<h1>Panel de administración</h1>	
         </nav>
 
-		<div class="usuario-menu">
+		<details class="usuario-menu">
 
-		    <span class="usuario-nombre"
-		          th:text="${nombreUsuario}">
+		    <summary class="usuario-nombre"
+		             th:text="${nombreUsuario}">
 		        Usuario
-		    </span>
+		    </summary>
 
 		    <div class="dropdown">
 		        <a th:href="@{/logout}">
@@ -29,7 +29,7 @@
 		        </a>
 		    </div>
 
-		</div>
+		</details>
     </header>
 
     <main class="contenido">

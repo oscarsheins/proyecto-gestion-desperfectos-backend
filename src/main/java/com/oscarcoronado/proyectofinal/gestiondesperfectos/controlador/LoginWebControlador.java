@@ -27,7 +27,7 @@ import jakarta.servlet.http.HttpSession;
 		
 		private static final Logger logger =
 	            LogManager.getLogger(LoginWebControlador.class);
-	
+		
 		@Autowired
 		private UsuarioServicio usuarioServicio;
 		
@@ -76,12 +76,17 @@ import jakarta.servlet.http.HttpSession;
 	
 		@GetMapping("/home")
 		public String mostrarHome(Model model, HttpSession session) {
-	
-			model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
-			model.addAttribute("incidencia", new IncidenciaCreaDto());
-	
-			return "home";
-		}	
+
+		    if (session.getAttribute("usuarioId") == null) {
+		        return "redirect:/login";
+		    }
+
+		    model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
+		    model.addAttribute("incidencia", new IncidenciaCreaDto());
+		    model.addAttribute("aulas", aulaServicio.listarAulas());
+
+		    return "home";
+		}
 		
 		@PostMapping("/home/incidencia")
 		public String crearIncidencia(
@@ -111,6 +116,7 @@ import jakarta.servlet.http.HttpSession;
 		    }
 	
 		    model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
+		    model.addAttribute("aulas", aulaServicio.listarAulas());
 	
 		    return "home";
 		}
@@ -181,6 +187,7 @@ import jakarta.servlet.http.HttpSession;
 	
 		    model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
 		    model.addAttribute("incidencia", dto);
+		    model.addAttribute("aulas", aulaServicio.listarAulas());
 	
 		    return "mis-incidencia-editar";
 		}
@@ -215,6 +222,7 @@ import jakarta.servlet.http.HttpSession;
 		        model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
 		        model.addAttribute("incidencia", incidencia);
 		        model.addAttribute("error", e.getMessage());
+		        model.addAttribute("aulas", aulaServicio.listarAulas());
 	
 		        return "mis-incidencia-editar";
 		    }
