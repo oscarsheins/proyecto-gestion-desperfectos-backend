@@ -14,7 +14,7 @@
     <header class="topbar">
 		
 		
-        <a th:href="@{/}" class="logo">🛠</a>
+        <a th:href="@{/admin/home}" class="logo">🛠</a>
 
 		<nav class="menu">
 		    <a th:href="@{/admin/aulas/nueva}">Crear aula</a>
@@ -39,9 +39,10 @@
 		</details>
     </header>
 	
-	<a th:href="@{/admin/home}">
-	    ← Volver al panel
-	</a>	
+	<a class="volver"
+				   th:href="@{/admin/home}">
+				    ← Volver al panel
+				</a>	
 
     <main class="contenido">
 

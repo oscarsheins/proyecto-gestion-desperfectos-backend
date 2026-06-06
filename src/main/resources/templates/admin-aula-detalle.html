@@ -8,31 +8,29 @@
 <body>
 
 <div class="layout">
-	
-	
 
     <header class="topbar">
-        <a th:href="@{/}" class="logo">🛠</a>
+        <a th:href="@{/admin/home}" class="logo">🛠</a>
 
         <nav class="menu">
             <a th:href="@{/admin/aulas/nueva}">Crear aula</a>
             <a th:href="@{/admin/aulas}" class="active">Gestionar aulas</a>
         </nav>
 
-		<details class="usuario-menu">
+        <details class="usuario-menu">
 
-		    <summary class="usuario-nombre"
-		             th:text="${nombreUsuario}">
-		        Usuario
-		    </summary>
+            <summary class="usuario-nombre"
+                     th:text="${nombreUsuario}">
+                Usuario
+            </summary>
 
-		    <div class="dropdown">
-		        <a th:href="@{/logout}">
-		            Cerrar sesión
-		        </a>
-		    </div>
+            <div class="dropdown">
+                <a th:href="@{/logout}">
+                    Cerrar sesión
+                </a>
+            </div>
 
-		</details>
+        </details>
     </header>
 
     <main class="contenido">
@@ -41,7 +39,7 @@
 
             <a class="volver"
                th:href="@{/admin/aulas}">
-                ← Volver
+                ←
             </a>
 
             <h1 th:text="${aula.codigo}">
@@ -52,36 +50,77 @@
 
                 <div class="campo">
                     <label>Código</label>
-                    <p th:text="${aula.codigo}"></p>
+                    <p th:text="${aula.codigo}">A-101</p>
                 </div>
 
                 <div class="campo">
                     <label>Descripción</label>
                     <div class="descripcion">
-                        <p th:text="${aula.descripcion}"></p>
+                        <p th:text="${aula.descripcion}">
+                            Descripción del aula
+                        </p>
                     </div>
                 </div>
 
             </div>
 
-            <div class="acciones">
+            <div class="incidencias-aula">
 
-                <a class="btn editar"
-                   th:href="@{/admin/aulas/{id}/editar(id=${aula.id})}">
-                    Editar aula
-                </a>
+                <h2>Incidencias de esta aula</h2>
 
-                <form th:action="@{/admin/aulas/{id}/eliminar(id=${aula.id})}"
-                      method="post">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Usuario</th>
+                            <th>Fecha creación</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
 
-                    <button type="submit"
-                            class="btn eliminar">
-                        Eliminar aula
-                    </button>
+                    <tbody>
+                        <tr th:each="incidencia : ${incidencias}"
+                            th:onclick="|window.location.href='@{/admin/incidencias/{id}(id=${incidencia.id})}'|"
+                            class="fila-click">
 
-                </form>
+                            <td th:text="${incidencia.titulo}">Proyector roto</td>
+                            <td th:text="${incidencia.usuarioUsername}">usuario</td>
+
+                            <td th:text="${#temporals.format(incidencia.fechaCreacion, 'dd/MM/yyyy')}">
+                                01/06/2026
+                            </td>
+
+                            <td th:text="${incidencia.estadoNombre}">
+                                PENDIENTE
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="sin-datos" th:if="${#lists.isEmpty(incidencias)}">
+                    Esta aula todavía no tiene incidencias registradas.
+                </p>
 
             </div>
+			<div class="acciones">
+
+			                <a class="btn editar"
+			                   th:href="@{/admin/aulas/{id}/editar(id=${aula.id})}">
+			                    Editar aula
+			                </a>
+
+			                <form th:action="@{/admin/aulas/{id}/eliminar(id=${aula.id})}"
+			                      method="post"
+			                      onsubmit="return confirm('¿Seguro que quieres eliminar esta aula?');">
+
+			                    <button type="submit"
+			                            class="btn eliminar">
+			                        Eliminar aula
+			                    </button>
+
+			                </form>
+
+			            </div>
 
         </section>
 

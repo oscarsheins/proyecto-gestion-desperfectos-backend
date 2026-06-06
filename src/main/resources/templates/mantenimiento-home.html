@@ -10,11 +10,12 @@
 <div class="layout">
 
     <header class="topbar">
-        <a th:href="@{}" class="logo">🛠</a>
+        <a th:href="@{/mantenimiento/home}" class="logo">🛠</a>
 
-        <nav class="menu">
-            <a href="#" class="active">Resolver incidencias</a>
-        </nav>
+		<nav class="menu">
+		    <a th:href="@{/mantenimiento/home}" class="active">Resolver incidencias</a>
+		    <a th:href="@{/mantenimiento/historico}">Histórico</a>
+		</nav>
 
 		<details class="usuario-menu">
 

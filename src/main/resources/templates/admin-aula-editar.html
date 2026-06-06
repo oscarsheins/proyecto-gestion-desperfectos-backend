@@ -10,7 +10,7 @@
 <div class="layout">
 
     <header class="topbar">
-        <a th:href="@{/}" class="logo">🛠</a>
+        <a th:href="@{/admin/home}" class="logo">🛠</a>
 
         <nav class="menu">
             <a th:href="@{/admin/aulas/nueva}">Crear aula</a>
@@ -33,7 +33,7 @@
 		</details>
     </header>
 	
-	<a th:href="@{/admin/aulas/{id}(id=${aulaId})}">
+	<a class="volver" th:href="@{/admin/aulas/{id}(id=${aulaId})}">
 	    ← Volver
 	</a>
 

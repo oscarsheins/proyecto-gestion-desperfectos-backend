@@ -49,7 +49,7 @@ body {
 
 .menu {
     display: flex;
-    jus	tify-content: center;
+    justify-content: center;
     gap: clamp(60px, 14vw, 250px);
 }
 

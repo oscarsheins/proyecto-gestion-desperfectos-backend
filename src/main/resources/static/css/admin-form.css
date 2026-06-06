@@ -310,6 +310,40 @@ select {
     font-size: 14px;
 }
 
+input:hover,
+textarea:hover,
+select:hover {
+    border-color: #d16a5a;
+    box-shadow: 0 0 0 2px rgba(209, 106, 90, 0.15);
+    transition: 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #d16a5a;
+    box-shadow: 0 0 0 2px rgba(209, 106, 90, 0.25);
+}
+
+button {
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #238636;
+    transform: translateY(-2px);
+}
+
+.imagen-box {
+    transition: 0.2s;
+}
+
+.imagen-box:hover {
+    border-color: #d16a5a;
+    color: white;
+}
+
 textarea {
     height: 130px;
     resize: none;
@@ -427,6 +461,84 @@ button:hover {
     color: #d16a5a;
 }
 
+.volver{
+	position: absolute;
+	top: 120px;
+	left: 40px;
+	color: white;
+	text-decoration: none;
+	font-size: 18px;
+	font-weight: bold;
+	transition: transform 0.2s ease, color 0.2s ease;
+}
+
+
+.volver:hover {
+    color: #d16a5a;
+    transform: translateX(-4px);
+}
+
+.switch-label {
+    display: block;
+    margin: 22px 0 8px;
+}
+
+.switch-label > span {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.switch-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.switch-box input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.switch-slider {
+    width: 48px;
+    height: 26px;
+    background-color: #30363d;
+    border-radius: 999px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+
+.switch-slider::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    transition: 0.2s;
+}
+
+.switch-box input[type="checkbox"]:checked + .switch-slider {
+    background-color: #2ea043;
+}
+
+.switch-box input[type="checkbox"]:checked + .switch-slider::before {
+    transform: translateX(20px);
+}
+
+.switch-box strong {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
 footer {
     width: 100%;
     min-height: 42px;
@@ -482,15 +594,7 @@ footer {
         font-size: 9px;
     }
 	
-	.volver-panel{
-		    position: absolute;
-		    top: 120px;
-		    left: 40px;
-		    color: #9ca3af;
-		    text-decoration: none;
-		    font-size: 18px;
-		    font-weight: bold;
-		}
+	
 }
 
 @media (max-width: 768px) {

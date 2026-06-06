@@ -179,4 +179,16 @@ public class IncidenciaServicioImp implements IncidenciaServicio {
 		return toDto(actualizada);
 	}
 
+	@Override
+	public List<IncidenciaDto> listByAula(Long aulaId) {
+		 if (aulaId == null) {
+		        throw new RuntimeException("aulaId es obligatorio");
+		    }
+
+		    return incidenciaRepository.findByAula_Id(aulaId)
+		            .stream()
+		            .map(this::toDto)
+		            .toList();
+	}
+
 }

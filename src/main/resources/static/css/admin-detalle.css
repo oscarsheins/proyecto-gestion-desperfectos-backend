@@ -120,8 +120,7 @@ body {
 .dropdown a:hover {
     background-color: #30363d;
     color: #d16a5a;
-}
-
+	}
 /* ==========================
    CONTENIDO
 ========================== */
@@ -219,11 +218,15 @@ body {
    BOTONES
 ========================== */
 
+/* ==========================
+   BOTONES
+========================== */
+
 .acciones {
-    margin-top: 40px;
+    margin-top: 45px;
     display: flex;
-    justify-content: center;
-    gap: 15px;
+    gap: 20px;
+    align-items: center;
 }
 
 .acciones form {
@@ -231,38 +234,89 @@ body {
 }
 
 .btn {
-    height: 38px;
+    height: 48px;
+    min-width: 165px;
     border: none;
-    font-weight: bold;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 16px;
     cursor: pointer;
-    font-size: 13px;
     text-decoration: none;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .btn:hover {
     transform: translateY(-2px);
-    filter: brightness(1.12);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+    filter: brightness(1.08);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
 }
 
 .btn:active {
     transform: translateY(0);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
-}	
-
-.editar {
-    background-color: #f59e0b;
-    color: black;
 }
 
+/* ---------- Editar ---------- */
+
+.editar {
+    background-color: #ffb000;
+    color: #111;
+    padding: 0 30px;
+}
+
+/* ---------- Eliminar ---------- */
+
 .eliminar {
-    background-color: #dc2626;
+    background-color: #ef2b2d;
     color: white;
+    padding: 0 30px;
+}
+.incidencias-aula {
+    margin-top: 42px;
+}
+
+.incidencias-aula h2 {
+    margin: 0 0 18px;
+    color: #9ca3af;
+    font-size: 22px;
+}
+
+.incidencias-aula table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.incidencias-aula th,
+.incidencias-aula td {
+    border-bottom: 1px solid #374151;
+    padding: 12px 14px;
+    font-size: 13px;
+    text-align: left;
+}
+
+.incidencias-aula th {
+    color: #9ca3af;
+}
+
+.incidencias-aula td {
+    color: #d1d5db;
+}
+
+.incidencias-aula tr:hover {
+    background-color: rgba(209, 106, 90, 0.15);
+}
+
+.sin-datos {
+    color: #9ca3af;
+    margin-top: 14px;
 }
 
 /* ==========================

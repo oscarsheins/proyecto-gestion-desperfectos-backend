@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Histórico de incidencias</title>
+    <link rel="stylesheet" th:href="@{/css/admin-tablas.css}">
+</head>
+<body>
+
+<div class="layout">
+
+    <header class="topbar">
+        <a th:href="@{/mantenimiento/home}" class="logo">🛠</a>
+
+        <nav class="menu">
+            <a th:href="@{/mantenimiento/home}">Resolver incidencias</a>
+            <a th:href="@{/mantenimiento/historico}" class="active">Histórico</a>
+        </nav>
+
+        <details class="usuario-menu">
+            <summary class="usuario-nombre"
+                     th:text="${nombreUsuario}">
+                Usuario
+            </summary>
+
+            <div class="dropdown">
+                <a th:href="@{/logout}">
+                    Cerrar sesión
+                </a>
+            </div>
+        </details>
+    </header>
+
+    <main class="contenido">
+
+        <section class="tabla-contenedor">
+
+            <h1>Histórico de incidencias</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Aula</th>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Fecha creación</th>
+                        <th>Última actualización</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="incidencia : ${incidencias}"
+                        th:onclick="|window.location.href='@{/mantenimiento/incidencia/{id}(id=${incidencia.id})}'|"
+                        class="fila-click">
+
+                        <td th:text="${incidencia.usuarioUsername}">Usuario</td>
+                        <td th:text="${incidencia.aulaCodigo}">Aula</td>
+                        <td th:text="${incidencia.titulo}">Título</td>
+                        <td th:text="${incidencia.descripcion}">Descripción</td>
+
+                        <td th:text="${#temporals.format(incidencia.fechaCreacion, 'dd/MM/yyyy')}">
+                            01/06/2026
+                        </td>
+
+                        <td>
+                            <span th:if="${incidencia.fechaActualizacion != null}"
+                                  th:text="${#temporals.format(incidencia.fechaActualizacion, 'dd/MM/yyyy')}">
+                            </span>
+
+                            <span th:if="${incidencia.fechaActualizacion == null}">
+                                —
+                            </span>
+                        </td>
+
+                        <td th:text="${incidencia.estadoNombre}">
+                            PENDIENTE
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p class="sin-datos" th:if="${#lists.isEmpty(incidencias)}">
+                No hay incidencias registradas.
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <span>Términos y servicios</span>
+        <span>Privacidad</span>
+        <span>Documentos</span>
+        <span>Contacto de soporte</span>
+        <span>Manejar cookies</span>
+    </footer>
+
+</div>
+
+</body>
+</html>

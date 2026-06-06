@@ -10,27 +10,27 @@
 <div class="layout">
 
     <header class="topbar">
-        <a th:href="@{}" class="logo">🛠</a>
+        <a th:href="@{/admin/home}" class="logo">🛠</a>
 
         <nav class="menu">
             <a th:href="@{/admin/usuarios/nuevo}">Crear usuario</a>
             <a th:href="@{/admin/usuarios}" class="active">Gestionar usuarios</a>
         </nav>
 
-		<details class="usuario-menu">
+        <details class="usuario-menu">
 
-		    <summary class="usuario-nombre"
-		             th:text="${nombreUsuario}">
-		        Usuario
-		    </summary>
+            <summary class="usuario-nombre"
+                     th:text="${nombreUsuario}">
+                Usuario
+            </summary>
 
-		    <div class="dropdown">
-		        <a th:href="@{/logout}">
-		            Cerrar sesión
-		        </a>
-		    </div>
+            <div class="dropdown">
+                <a th:href="@{/logout}">
+                    Cerrar sesión
+                </a>
+            </div>
 
-		</details>
+        </details>
     </header>
 
     <main class="contenido">
@@ -40,16 +40,27 @@
               th:object="${usuarioNuevo}"
               method="post">
 
+            <a class="volver"
+               th:href="@{/admin/usuarios/{id}(id=${usuarioId})}">
+                ← Volver
+            </a>
+
             <h1>Editar usuario</h1>
 
             <label>Username</label>
-            <input type="text" th:field="*{username}" required>
+            <input type="text"
+                   th:field="*{username}"
+                   required>
 
             <label>Nombre completo</label>
-            <input type="text" th:field="*{nombre}" required>
+            <input type="text"
+                   th:field="*{nombre}"
+                   required>
 
             <label>Email</label>
-            <input type="email" th:field="*{email}" required>
+            <input type="email"
+                   th:field="*{email}"
+                   required>
 
             <label>Nueva contraseña</label>
             <input type="password"
@@ -63,10 +74,12 @@
                 <option value="ADMIN">Administrador</option>
             </select>
 
-            <label class="checkbox-label">
-                <input type="checkbox" th:field="*{activo}">
-                Usuario activo
-            </label>
+			<label>Estado del usuario</label>
+
+			<select th:field="*{activo}">
+			    <option th:value="true">🟢 Activo</option>
+			    <option th:value="false">🔴 Inactivo</option>
+			</select>
 
             <p class="error" th:if="${error}" th:text="${error}"></p>
 
@@ -79,4 +92,4 @@
 </div>
 
 </body>
-</html>
+</html>	

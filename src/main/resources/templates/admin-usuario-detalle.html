@@ -10,7 +10,7 @@
 	<div class="layout">
 	
 	    <header class="topbar">
-	        <a th:href="@{}" class="logo">🛠</a>
+	        <a th:href="@{/admin/home}" class="logo">🛠</a>
 	
 	        <nav class="menu">
 	            <a th:href="@{/admin/usuarios/nuevo}">Crear usuario</a>
@@ -38,7 +38,7 @@
 	        <section class="detalle-card">
 	
 	            <a class="volver" th:href="@{/admin/usuarios}">
-	                ← Volver
+	                ← 
 	            </a>
 	
 	            <h1 th:text="${usuario.username}">
@@ -75,6 +75,46 @@
 	                </div>
 	
 	            </div>
+				
+				<div class="incidencias-aula">
+
+				    <h2>Incidencias enviadas por este usuario</h2>
+
+				    <table>
+				        <thead>
+				            <tr>
+				                <th>Título</th>
+				                <th>Aula</th>
+				                <th>Fecha creación</th>
+				                <th>Estado</th>
+				            </tr>
+				        </thead>
+
+				        <tbody>
+				            <tr th:each="incidencia : ${incidencias}"
+				                th:onclick="|window.location.href='@{/admin/incidencias/{id}(id=${incidencia.id})}'|"
+				                class="fila-click">
+
+				                <td th:text="${incidencia.titulo}">Proyector roto</td>
+				                <td th:text="${incidencia.aulaCodigo}">A-101</td>
+
+				                <td th:text="${#temporals.format(incidencia.fechaCreacion, 'dd/MM/yyyy')}">
+				                    01/06/2026
+				                </td>
+
+				                <td th:text="${incidencia.estadoNombre}">
+				                    PENDIENTE
+				                </td>
+				            </tr>
+				        </tbody>
+				    </table>
+
+				    <p class="sin-datos" th:if="${#lists.isEmpty(incidencias)}">
+				        Este usuario todavía no ha enviado incidencias.
+				    </p>
+
+				</div>
+				
 	
 	            <div class="acciones">
 	

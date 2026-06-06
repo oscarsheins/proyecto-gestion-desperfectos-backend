@@ -93,32 +93,30 @@ import jakarta.servlet.http.HttpSession;
 		        @ModelAttribute IncidenciaCreaDto incidencia,
 		        HttpSession session,
 		        Model model) {
-	
+
 		    Long usuarioId = (Long) session.getAttribute("usuarioId");
-	
+
 		    if (usuarioId == null) {
 		        return "redirect:/login";
 		    }
-	
+
 		    try {
 		        incidencia.setUsuarioId(usuarioId);
-		        incidencia.setEstadoId(1L); // Pendiente de momento
-	
-		        incidenciaServicio.crear(incidencia);
-	
-		        model.addAttribute("mensaje", "Incidencia enviada correctamente");
-		        model.addAttribute("incidencia", new IncidenciaCreaDto());
-	
+		        incidencia.setEstadoId(1L);
+
+		        var incidenciaCreada = incidenciaServicio.crear(incidencia);
+
+		        return "redirect:/mis-incidencias/" + incidenciaCreada.getId();
+
 		    } catch (RuntimeException e) {
-	
+
 		        model.addAttribute("error", e.getMessage());
 		        model.addAttribute("incidencia", incidencia);
+		        model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
+		        model.addAttribute("aulas", aulaServicio.listarAulas());
+
+		        return "home";
 		    }
-	
-		    model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
-		    model.addAttribute("aulas", aulaServicio.listarAulas());
-	
-		    return "home";
 		}
 		
 		@GetMapping("/mis-incidencias")
@@ -302,6 +300,26 @@ import jakarta.servlet.http.HttpSession;
 		    return "redirect:/mantenimiento/home";
 		}
 		
+		// vista de historico de mantenimiento 
+		@GetMapping("/mantenimiento/historico")
+		public String verHistoricoIncidencias(
+		        HttpSession session,
+		        Model model) {
+
+		    if (session.getAttribute("usuarioId") == null) {
+		        return "redirect:/login";
+		    }
+
+		    if (!session.getAttribute("rolUsuario").toString().equals("MANTENIMIENTO")) {
+		        return "redirect:/home";
+		    }
+
+		    model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
+		    model.addAttribute("incidencias", incidenciaServicio.listAll());
+
+		    return "mantenimiento-historico";
+		}
+		
 		// Vistas de administrador 
 		
 		//Vista del home
@@ -467,19 +485,48 @@ import jakarta.servlet.http.HttpSession;
 		}
 		
 		//Vista para ver las aulas por separado
+		
 		@GetMapping("/admin/aulas/{id}")
 		public String verDetalleAula(
 		        @PathVariable Long id,
 		        HttpSession session,
 		        Model model) {
 
-		    model.addAttribute("nombreUsuario",
-		            session.getAttribute("nombreUsuario"));
+		    if (session.getAttribute("usuarioId") == null) {
+		        return "redirect:/login";
+		    }
 
-		    model.addAttribute("aula",
-		            aulaServicio.buscarAulaPorId(id));
+		    if (!session.getAttribute("rolUsuario").toString().equals("ADMIN")) {
+		        return "redirect:/home";
+		    }
+
+		    model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
+		    model.addAttribute("aula", aulaServicio.buscarAulaPorId(id));
+		    model.addAttribute("incidencias", incidenciaServicio.listByAula(id));
 
 		    return "admin-aula-detalle";
+		}
+		
+		// Ver incidencias en usuario
+		
+		@GetMapping("/admin/incidencias/{id}")
+		public String verDetalleIncidenciaAdmin(
+		        @PathVariable Long id,
+		        HttpSession session,
+		        Model model) {
+
+		    if (session.getAttribute("usuarioId") == null) {
+		        return "redirect:/login";
+		    }
+
+		    if (!session.getAttribute("rolUsuario").toString().equals("ADMIN")) {
+		        return "redirect:/home";
+		    }
+
+		    model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
+		    model.addAttribute("incidencia", incidenciaServicio.listById(id));
+
+		    return "admin-incidencia-detalle";
 		}
 		
 		//vista para crear usurios nuevos 
@@ -564,8 +611,30 @@ import jakarta.servlet.http.HttpSession;
 
 		    model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
 		    model.addAttribute("usuario", usuarioServicio.buscarUsuarioPorIdC(id));
+		    model.addAttribute("incidencias", incidenciaServicio.listByUsuario(id));
 
 		    return "admin-usuario-detalle";
+		}
+		
+		@GetMapping("/admin/usuarios/{id}/editar")
+		public String mostrarEditarUsuario(
+		        @PathVariable Long id,
+		        HttpSession session,
+		        Model model) {
+
+		    if (session.getAttribute("usuarioId") == null) {
+		        return "redirect:/login";
+		    }
+
+		    if (!session.getAttribute("rolUsuario").toString().equals("ADMIN")) {
+		        return "redirect:/home";
+		    }
+
+		    model.addAttribute("nombreUsuario", session.getAttribute("nombreUsuario"));
+		    model.addAttribute("usuarioNuevo", usuarioServicio.buscarUsuarioPorIdC(id));
+		    model.addAttribute("usuarioId", id);
+
+		    return "admin-usuario-editar";
 		}
 		
 		@PostMapping("/admin/usuarios/{id}/editar")

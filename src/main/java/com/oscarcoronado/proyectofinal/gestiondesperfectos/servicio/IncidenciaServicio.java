@@ -20,6 +20,8 @@ public interface IncidenciaServicio {
     List<IncidenciaDto> listActivas();
     
     IncidenciaDto editar(Long id, IncidenciaEditaDto dto);
+    
+    List<IncidenciaDto> listByAula(Long aulaId);
 
     void borrarById(Long id);
     void borrarAll();

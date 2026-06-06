@@ -10,27 +10,25 @@
 <div class="layout">
 
     <header class="topbar">
-        <a th:href="@{/mantenimiento/home}" class="logo">🛠</a>
+        <a th:href="@{/admin/home}" class="logo">🛠</a>
 
-		<nav class="menu">
-		    <a th:href="@{/mantenimiento/home}">Resolver incidencias</a>
-		    <a th:href="@{/mantenimiento/historico}" class="active">Histórico</a>
-		</nav>
+        <nav class="menu">
+            <a th:href="@{/admin/aulas}">Gestionar aulas</a>
+            <a th:href="@{/admin/usuarios}">Gestionar usuarios</a>
+        </nav>
 
-		<details class="usuario-menu">
+        <details class="usuario-menu">
+            <summary class="usuario-nombre"
+                     th:text="${nombreUsuario}">
+                Usuario
+            </summary>
 
-		    <summary class="usuario-nombre"
-		             th:text="${nombreUsuario}">
-		        Usuario
-		    </summary>
-
-		    <div class="dropdown">
-		        <a th:href="@{/logout}">
-		            Cerrar sesión
-		        </a>
-		    </div>
-
-		</details>
+            <div class="dropdown">
+                <a th:href="@{/logout}">
+                    Cerrar sesión
+                </a>
+            </div>
+        </details>
     </header>
 
     <main class="contenido">
@@ -38,12 +36,19 @@
         <section class="detalle-card">
 
             <div class="detalle-header">
-                <a class="volver" th:href="@{/mantenimiento/home}">←</a>
+				<a class="volver"
+				   href="javascript:history.back()">
+				    ←
+				</a>
 
                 <div class="usuario-incidencia">
                     <div class="avatar">👤</div>
-                    <span th:text="${incidencia.usuarioUsername}">Nickname</span>
+                    <span th:text="${incidencia.usuarioUsername}">
+                        Nickname
+                    </span>
                 </div>
+
+                <span></span>
             </div>
 
             <div class="detalle-body">
@@ -51,39 +56,51 @@
                 <div class="info">
 
                     <div class="grid-info">
+
                         <div>
                             <p>
                                 <strong>Estado:</strong>
-                                <span th:text="${incidencia.estadoNombre}">Pendiente</span>
+                                <span th:text="${incidencia.estadoNombre}">
+                                    Pendiente
+                                </span>
                             </p>
 
                             <p>
                                 <strong>Id:</strong>
-                                <span th:text="${incidencia.id}">INC-2025-0131</span>
+                                <span th:text="${incidencia.id}">
+                                    INC-1
+                                </span>
                             </p>
 
                             <p>
                                 <strong>Ubicación:</strong>
-                                <span th:text="${incidencia.aulaCodigo}">Aula x</span>
+                                <span th:text="${incidencia.aulaCodigo}">
+                                    Aula x
+                                </span>
                             </p>
                         </div>
 
                         <div>
                             <p>
                                 <strong>Fecha creación:</strong>
-                                <span th:text="${#temporals.format(incidencia.fechaCreacion, 'dd/MM/yyyy')}">12/02/2025</span>
+                                <span th:text="${#temporals.format(incidencia.fechaCreacion, 'dd/MM/yyyy')}">
+                                    12/02/2025
+                                </span>
                             </p>
 
                             <p>
                                 <strong>Fecha actualización:</strong>
+
                                 <span th:if="${incidencia.fechaActualizacion != null}"
                                       th:text="${#temporals.format(incidencia.fechaActualizacion, 'dd/MM/yyyy')}">
-                                    12/02/2025
                                 </span>
 
-                                <span th:if="${incidencia.fechaActualizacion == null}">—</span>
+                                <span th:if="${incidencia.fechaActualizacion == null}">
+                                    —
+                                </span>
                             </p>
                         </div>
+
                     </div>
 
                     <div class="descripcion">
@@ -91,24 +108,6 @@
                         <p th:text="${incidencia.descripcion}">
                             Descripción de la incidencia...
                         </p>
-                    </div>
-
-                    <div class="acciones">
-
-                        <form th:action="@{/mantenimiento/incidencia/{id}/en-curso(id=${incidencia.id})}"
-                              method="post">
-                            <button type="submit" class="btn curso">
-                                — En progreso
-                            </button>
-                        </form>
-
-                        <form th:action="@{/mantenimiento/incidencia/{id}/finalizar(id=${incidencia.id})}"
-                              method="post">
-                            <button type="submit" class="btn finalizar">
-                                ✕ Finalizar
-                            </button>
-                        </form>
-
                     </div>
 
                 </div>
@@ -125,11 +124,10 @@
 
     <footer>
         <span>Términos y servicios</span>
-        <span>Privacidad</span>
+        <span>Privacidad</span>	
         <span>Documentos</span>
         <span>Contacto de soporte</span>
         <span>Manejar cookies</span>
-        <span>No mostrar mi información personal</span>
     </footer>
 
 </div>
